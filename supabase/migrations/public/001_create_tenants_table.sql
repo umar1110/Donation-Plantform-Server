@@ -69,24 +69,30 @@ CREATE OR REPLACE TRIGGER update_tenants_updated_at
 
 
 -- Function to generate schema name from tenant name
-CREATE OR REPLACE FUNCTION generate_schema_name(tenant_name TEXT)
+CREATE OR REPLACE FUNCTION generate_schema_name(p_tenant_name TEXT)
 RETURNS TEXT AS $$
 DECLARE
-    base_name TEXT;
-    schema_name TEXT;
-    counter INT := 0;
+    v_base_name TEXT;
+    v_schema_name TEXT;
+    v_counter INT := 0;
 BEGIN
     -- Clean and normalize the name
-    base_name := 'tenant_' || regexp_replace(lower(tenant_name), '[^a-z0-9]', '_', 'g');
-    schema_name := base_name;
-    
+    v_base_name :=
+        'tenant_' || regexp_replace(lower(p_tenant_name), '[^a-z0-9]', '_', 'g');
+
+    v_schema_name := v_base_name;
+
     -- Ensure uniqueness
-    WHILE EXISTS (SELECT 1 FROM public.tenants WHERE tenants.schema_name = schema_name) LOOP
-        counter := counter + 1;
-        schema_name := base_name || '_' || counter;
+    WHILE EXISTS (
+        SELECT 1
+        FROM public.tenants t
+        WHERE t.schema_name = v_schema_name
+    ) LOOP
+        v_counter := v_counter + 1;
+        v_schema_name := v_base_name || '_' || v_counter;
     END LOOP;
-    
-    RETURN schema_name;
+
+    RETURN v_schema_name;
 END;
 $$ LANGUAGE plpgsql;
 

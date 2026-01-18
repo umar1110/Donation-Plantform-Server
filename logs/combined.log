@@ -2,3 +2,38 @@
 2026-01-17 21:35:51 [INFO]: Schema migration tracking initialized
 2026-01-17 21:35:51 [INFO]: Starting schema migrations for all tenants...
 2026-01-17 21:35:51 [INFO]: All migrations completed
+2026-01-18 16:00:44 [INFO]: New database connection established
+2026-01-18 16:01:09 [INFO]: New database connection established
+2026-01-18 16:04:14 [INFO]: New database connection established
+2026-01-18 16:04:14 [INFO]: New database connection established
+2026-01-18 16:05:30 [INFO]: New database connection established
+2026-01-18 16:05:30 [INFO]: New database connection established
+2026-01-18 16:05:36 [INFO]: New database connection established
+2026-01-18 16:06:45 [INFO]: New database connection established
+2026-01-18 16:06:45 [INFO]: New database connection established
+2026-01-18 16:08:08 [INFO]: New database connection established
+2026-01-18 16:08:08 [INFO]: New database connection established
+2026-01-18 16:08:08 [ERROR]: Error occurred: invalid input syntax for type uuid: "0927902q7412" {"stack":"error: invalid input syntax for type uuid: \"0927902q7412\"\n    at /Users/mac/XenithPulse/ERP_SCHOOL/server/node_modules/pg-pool/index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at TenantService.getTenantInfo (/Users/mac/XenithPulse/ERP_SCHOOL/server/src/services/teanant.service.ts:7:24)\n    at tenantHandler (/Users/mac/XenithPulse/ERP_SCHOOL/server/src/middleware/tenant-handler.ts:23:24)","path":"/test","method":"GET"}
+2026-01-18 16:08:27 [INFO]: New database connection established
+2026-01-18 16:08:27 [INFO]: New database connection established
+2026-01-18 16:08:27 [ERROR]: Error occurred: invalid input syntax for type uuid: "0927902q7412" {"stack":"error: invalid input syntax for type uuid: \"0927902q7412\"\n    at /Users/mac/XenithPulse/ERP_SCHOOL/server/node_modules/pg-pool/index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at TenantService.getTenantInfo (/Users/mac/XenithPulse/ERP_SCHOOL/server/src/services/teanant.service.ts:7:24)\n    at tenantHandler (/Users/mac/XenithPulse/ERP_SCHOOL/server/src/middleware/tenant-handler.ts:23:24)","path":"/test","method":"GET"}
+2026-01-18 16:08:28 [INFO]: New database connection established
+2026-01-18 16:08:28 [ERROR]: Error occurred: invalid input syntax for type uuid: "0927902q7412" {"stack":"error: invalid input syntax for type uuid: \"0927902q7412\"\n    at /Users/mac/XenithPulse/ERP_SCHOOL/server/node_modules/pg-pool/index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at TenantService.getTenantInfo (/Users/mac/XenithPulse/ERP_SCHOOL/server/src/services/teanant.service.ts:7:24)\n    at tenantHandler (/Users/mac/XenithPulse/ERP_SCHOOL/server/src/middleware/tenant-handler.ts:23:24)","path":"/test","method":"GET"}
+2026-01-18 16:24:24 [INFO]: New database connection established
+2026-01-18 16:24:24 [INFO]: Starting public schema migrations...
+2026-01-18 16:24:24 [INFO]: Running migration: 001_create_tenants_table.sql
+2026-01-18 16:24:24 [INFO]: ✅ Migration completed: 001_create_tenants_table.sql
+2026-01-18 16:24:41 [INFO]: New database connection established
+2026-01-18 16:24:41 [INFO]: Schema migration tracking initialized
+2026-01-18 16:24:41 [INFO]: Starting schema migrations for all tenants...
+2026-01-18 16:24:41 [INFO]: All migrations completed
+2026-01-18 16:29:15 [INFO]: New database connection established
+2026-01-18 16:29:15 [INFO]: Schema migration tracking initialized
+2026-01-18 16:29:15 [INFO]: Starting schema migrations for all tenants...
+2026-01-18 16:29:15 [INFO]: No pending migrations for tenant_supereme
+2026-01-18 16:29:15 [INFO]: All migrations completed
+2026-01-18 16:30:12 [INFO]: New database connection established
+2026-01-18 16:30:12 [INFO]: New database connection established
+2026-01-18 16:32:50 [INFO]: New database connection established
+2026-01-18 16:32:50 [INFO]: New database connection established
+2026-01-18 16:32:54 [INFO]: New database connection established

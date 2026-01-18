@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { TenantService } from "../services/teanant.service";
 import { pool } from "../config/database";
 
-const tenantHandler = async (
+export const tenantHandler = async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -38,12 +38,16 @@ const tenantHandler = async (
       client.release();
     });
 
+    res.on("close", async () => {
+      if (!res.writableEnded) {
+        await client.query("ROLLBACK");
+        client.release();
+      }
+    });
     next();
   } catch (error) {
     client.query("ROLLBACK");
-    next(error);
-  } finally {
-    // Ensure client is released in case of unexpected errors
     client.release();
+    next(error);
   }
 };
