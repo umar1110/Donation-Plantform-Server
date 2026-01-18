@@ -4,7 +4,8 @@ import { ZodError } from 'zod';
 
 export interface ApiError extends Error {
   statusCode?: number;
-  isOperational?: boolean;
+  isOperational?: boolean; // Indicates if the error is expected (operational) or a programming error
+  
 }
 
 export function errorHandler(
@@ -26,7 +27,7 @@ export function errorHandler(
     return res.status(400).json({
       success: false,
       message: 'Validation error',
-      errors: err.flatten().fieldErrors
+      errors: err.issues.map(issue => issue.message)
     });
   }
   

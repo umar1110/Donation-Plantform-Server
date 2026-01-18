@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { TenantService } from "../services/teanant.service";
+import { TenantService } from "../modules/tenants/tenant.service";
 import { pool } from "../config/database";
 
 export const tenantHandler = async (
