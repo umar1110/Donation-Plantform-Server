@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS public.tenants (
     schema_name VARCHAR(100) UNIQUE NOT NULL,
     
     -- Owner Information (from Supabase Auth)
-    owner_id UUID NOT NULL, -- References auth.users(id) from Supabase
-    owner_email VARCHAR(255) NOT NULL,
+    owner_id UUID NULL, -- References auth.users(id) from Supabase
+    owner_email VARCHAR(255) NULL,
     
     -- Subscription & Status
     status VARCHAR(50) DEFAULT 'active' CHECK (status IN ('active', 'suspended', 'cancelled')),
