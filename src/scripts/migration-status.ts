@@ -16,13 +16,13 @@ async function showMigrationStatus() {
             console.log(`  ${m.version}. ${m.name}`);
         });
         
-        // Get status for all tenants
+        // Get status for all orgss
         const status = await manager.getMigrationStatus();
         
-        console.log('\n=== Tenant Schemas ===');
+        console.log('\n=== Orgs Schemas ===');
         
         if (status.length === 0) {
-            console.log('  No tenants found');
+            console.log('  No orgss found');
         } else {
             const maxSchemaLen = Math.max(...status.map(s => s.schema.length));
             

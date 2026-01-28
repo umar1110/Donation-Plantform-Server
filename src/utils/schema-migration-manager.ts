@@ -92,7 +92,7 @@ export class SchemaMigrationManager {
       : executeInSchema;
 
     await clientToUse(schemaName, async (client: any) => {
-      // Set search_path to the tenant schema so unqualified objects are created in the correct schema
+      // Set search_path to the orgs schema so unqualified objects are created in the correct schema
       await client.query(`SET search_path TO ${schemaName}, public`);
       
       await client.query(sql);
@@ -127,9 +127,9 @@ export class SchemaMigrationManager {
     return pending.length;
   }
 
-  async applyToAllTenants(): Promise<{ schema: string; count: number }[]> {
+  async applyToAllOrgss(): Promise<{ schema: string; count: number }[]> {
     const result = await pool.query<{ schema_name: string }>(
-      `SELECT schema_name FROM public.tenants WHERE deleted_at IS NULL`,
+      `SELECT schema_name FROM public.orgss WHERE deleted_at IS NULL`,
     );
 
     const results = [];
@@ -167,7 +167,7 @@ export class SchemaMigrationManager {
     }
   }
   /**
-   * Get migration status for all tenants
+   * Get migration status for all orgss
    */
   async getMigrationStatus(): Promise<
     Array<{
@@ -183,9 +183,9 @@ export class SchemaMigrationManager {
     // Decide client to use
     const queryClient = this.getQueryClient();
 
-    // Fetch tenant schemas
+    // Fetch orgs schemas
     const result = await pool.query<{ schema_name: string }>(
-      `SELECT schema_name FROM public.tenants WHERE deleted_at IS NULL`,
+      `SELECT schema_name FROM public.orgss WHERE deleted_at IS NULL`,
     );
 
     const status = [];

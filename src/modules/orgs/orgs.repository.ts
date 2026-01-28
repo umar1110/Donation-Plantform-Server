@@ -1,34 +1,33 @@
-import { PoolClient } from "pg";
-import { createTenantSchema } from "./tenant.schema";
 import { z } from "zod";
-import { SchemaMigrationManager } from "../../utils/schema-migration-manager";
-import { supabase, supabaseAdmin } from "../../config/supabase";
-import { ApiError } from "../../utils/apiError";
 import { pool } from "../../config/database";
+import { supabaseAdmin } from "../../config/supabase";
+import { ApiError } from "../../utils/apiError";
+import { SchemaMigrationManager } from "../../utils/schema-migration-manager";
+import { createOrgsSchema } from "./orgs.schema";
 
-export async function createTenant(
-  tenantData: z.infer<typeof createTenantSchema>,
+export async function createOrgs(
+  orgsData: z.infer<typeof createOrgsSchema>,
 ) {
   const { name, subdomain, first_name, last_name, user_email, user_password } =
-    tenantData;
+    orgsData;
 
-  const schemaName = `tenant_${subdomain}`;
+  const schemaName = `orgs_${subdomain}`;
   const client = await pool.connect();
 
-  let tenantId: string;
+  let orgsId: string;
 
   try {
     await client.query("BEGIN");
 
-    // 1. Create tenant record (temporary state)
-    const tenantRes = await client.query(
-      `INSERT INTO public.tenants (name, subdomain, schema_name)
+    // 1. Create orgs record (temporary state)
+    const orgsRes = await client.query(
+      `INSERT INTO public.orgss (name, subdomain, schema_name)
        VALUES ($1, $2, $3)
        RETURNING id`,
       [name, subdomain, schemaName],
     );
 
-    tenantId = tenantRes.rows[0].id;
+    orgsId = orgsRes.rows[0].id;
 
     // 2. Create schema
     await client.query(`CREATE SCHEMA IF NOT EXISTS ${schemaName}`);
@@ -58,14 +57,14 @@ export async function createTenant(
       [data.user.id, first_name, last_name, user_email],
     );
 
-    // 6. Activate tenant
+    // 6. Activate orgs
     await client.query(
-      `UPDATE public.tenants
+      `UPDATE public.orgss
      SET owner_id = $1,
          owner_email = $2,
          status = 'active'
      WHERE id = $3`,
-      [data.user.id, user_email, tenantId],
+      [data.user.id, user_email, orgsId],
     );
 
     await client.query("COMMIT");
@@ -79,7 +78,7 @@ export async function createTenant(
   // ---- OUTSIDE TRANSACTION ----
 
   return {
-    tenantId,
+    orgsId,
     schemaName,
   };
 }

@@ -10,8 +10,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(httpLogger);
 
 // Routes
-import tenantRoutes from "./modules/tenants/tenant.routes";
-app.use("/api/v1", tenantRoutes);
+import orgsRoutes from "./modules/orgs/orgs.routes";
+app.use("/api/v1", orgsRoutes);
 app.get("/health", (req: express.Request, res: express.Response) => {
   res.json({ status: "OK" });
 });

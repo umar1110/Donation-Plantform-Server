@@ -30,7 +30,7 @@ export async function testDatabaseConnection(): Promise<boolean> {
     const client = await pool.connect();
     const result = await client.query('SELECT NOW()');
     client.release();
-    logger.info('Database connection successful:', result.rows[0]);
+    logger.info(`Database connection successful: ${result.rows[0].now}`);
     return true;
   } catch (error) {
     logger.error('Database connection failed:', error);
@@ -49,7 +49,7 @@ export async function executeInSchema<T = any>(
     // Start transaction
     await client.query('BEGIN');
     
-    // Set search_path to tenant schema + public
+    // Set search_path to orgs schema + public
     await client.query(`SET search_path TO ${schemaName}, public`);
     
     // Execute callback

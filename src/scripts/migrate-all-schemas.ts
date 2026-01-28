@@ -9,10 +9,10 @@ async function migrateAllSchemas() {
         // Initialize tracking
         await manager.initializeMigrationTracking();
         
-        logger.info('Starting schema migrations for all tenants...');
+        logger.info('Starting schema migrations for all orgss...');
         
-        // Apply to all tenants
-        const results = await manager.applyToAllTenants();
+        // Apply to all orgss
+        const results = await manager.applyToAllOrgss();
         
         // Show results
         console.log('\n=== Migration Results ===');

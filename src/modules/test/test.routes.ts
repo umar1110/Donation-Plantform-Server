@@ -1,13 +1,13 @@
 import express from "express";
-import { tenantHandler } from "../../middleware/tenant-handler";
+import { orgsHandler } from "../../middleware/orgs-handler";
 import { ApiError } from "../../utils/apiError";
 
 const router = express.Router();
 
 // Authenticate User: Can be added here in future
-router.get("/test", tenantHandler, (req, res) => {
+router.get("/test", orgsHandler, (req, res) => {
   throw new ApiError(400, "Test error from test route", []);
-  res.json({ message: "Test route is working with tenant checking!" });
+  res.json({ message: "Test route is working with orgs checking!" });
 });
 
 export default router;

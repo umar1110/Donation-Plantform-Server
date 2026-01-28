@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { TenantService } from "../modules/tenants/tenant.service";
+import { OrgsService } from "../modules/orgs/orgs.service";
 import { pool } from "../config/database";
 
-export const tenantHandler = async (
+export const orgsHandler = async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -10,28 +10,28 @@ export const tenantHandler = async (
   const client = await pool.connect();
 
   try {
-    const tenantId = req.headers["x-tenant-id"] as string;
-    if (!tenantId) {
+    const orgsId = req.headers["x-orgs-id"] as string;
+    if (!orgsId) {
       return res.status(400).json({
         success: false,
-        message: "Missing X-Tenant-ID header",
+        message: "Missing X-Orgs-ID header",
       });
     }
 
-    const tenantService = new TenantService();
-    const tenantInfo = await tenantService.getTenantInfo(tenantId);
-    if (!tenantInfo) {
+    const orgsService = new OrgsService();
+    const orgsInfo = await orgsService.getOrgsInfo(orgsId);
+    if (!orgsInfo) {
       return res.status(404).json({
         success: false,
-        message: "Tenant not found",
+        message: "Orgs not found",
       });
     }
 
-    (req as any).tenant = tenantInfo;
+    (req as any).orgs = orgsInfo;
     // Setting search path to that schema
 
     await client.query("BEGIN");
-    await client.query(`SET search_path TO ${tenantInfo.schema_name}, public`);
+    await client.query(`SET search_path TO ${orgsInfo.schema_name}, public`);
     (req as any).db = client;
     res.on("finish", async () => {
       await client.query("COMMIT");
