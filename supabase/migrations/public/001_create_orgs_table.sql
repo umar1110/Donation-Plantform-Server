@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS public.orgs (
     website VARCHAR(255) NULL,
     description TEXT NOT NULL,
     ABN VARCHAR(20) NULL,
-    type VARCHAR(50) NULL,
-    country VARCHAR(100) NULL,
+    type VARCHAR(50) NULL, -- TODO: Convert in Number or Enum later
+    country VARCHAR(100) NOT NULL,
 
     subdomain VARCHAR(100) UNIQUE NOT NULL,
     schema_name VARCHAR(100) UNIQUE NOT NULL,
@@ -40,7 +40,8 @@ CREATE TABLE IF NOT EXISTS public.orgs (
     
     -- Constraints
     CONSTRAINT valid_subdomain CHECK (subdomain ~* '^[a-z0-9][a-z0-9-]*[a-z0-9]$'),
-    CONSTRAINT valid_schema_name CHECK (schema_name ~* '^org_[a-z0-9_]+$')
+    CONSTRAINT valid_schema_name CHECK (schema_name ~* '^org_[a-z0-9_]+$'),
+    CONSTRAINT valid_website CHECK (website IS NULL OR website ~* '^(https?://)?([a-z0-9.-]+)(:[0-9]{1,5})?(/.*)?$')
 );
 
 -- Create indexes for performance

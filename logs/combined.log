@@ -48,3 +48,18 @@
 [2026-01-28 09:23:29] [INFO]: Database connection successful: Wed Jan 28 2026 09:23:29 GMT+0500 (Pakistan Standard Time)
 [2026-01-28 09:23:42] [INFO]: New database connection established
 [2026-01-28 09:23:42] [INFO]: Database connection successful: Wed Jan 28 2026 09:23:42 GMT+0500 (Pakistan Standard Time)
+[2026-01-28 09:28:35] [ERROR]: Error occurred: [
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [],
+    "message": "Invalid input: expected object, received undefined"
+  }
+] {"stack":"ZodError: [\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  }\n]\n    at registerNewOrgs (/Users/mac/My Projects/DonationPlatform/server/src/modules/orgs/orgs.controller.ts:8:35)\n    at Layer.handleRequest (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/layer.js:152:17)\n    at next (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/route.js:157:13)\n    at Route.dispatch (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/route.js:117:3)\n    at handle (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/index.js:435:11)\n    at Layer.handleRequest (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/layer.js:152:17)\n    at /Users/mac/My Projects/DonationPlatform/server/node_modules/router/index.js:295:15\n    at processParams (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/index.js:582:12)\n    at next (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/index.js:291:5)\n    at Function.handle (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/index.js:186:3)","path":"/api/v1/orgs","method":"POST"}
+[2026-01-28 09:35:30] [INFO]: New database connection established
+[2026-01-28 09:35:30] [INFO]: Database connection successful: Wed Jan 28 2026 09:35:30 GMT+0500 (Pakistan Standard Time)
+[2026-01-28 09:35:45] [ERROR]: Error occurred: column "ABN" of relation "orgs" does not exist {"stack":"error: column \"ABN\" of relation \"orgs\" does not exist\n    at /Users/mac/My Projects/DonationPlatform/server/node_modules/pg/lib/client.js:588:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at OrgsRepository.insertOrgs (/Users/mac/My Projects/DonationPlatform/server/src/modules/orgs/orgs.repository.ts:24:20)\n    at OrgsService.createOrgs (/Users/mac/My Projects/DonationPlatform/server/src/modules/orgs/orgs.service.ts:43:16)\n    at registerNewOrgs (/Users/mac/My Projects/DonationPlatform/server/src/modules/orgs/orgs.controller.ts:10:16)","path":"/api/v1/orgs","method":"POST"}
+[2026-01-28 09:38:19] [INFO]: New database connection established
+[2026-01-28 09:38:19] [INFO]: Database connection successful: Wed Jan 28 2026 09:38:19 GMT+0500 (Pakistan Standard Time)
+[2026-01-28 09:38:20] [INFO]: Applying 1 migrations to org_xenith
+[2026-01-28 09:38:20] [INFO]: Applied migration 1_create_user_profile to org_xenith

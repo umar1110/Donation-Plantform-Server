@@ -22,7 +22,7 @@ export class OrgsRepository {
     }
   ): Promise<string> {
     const result = await client.query(
-      `INSERT INTO public.orgs (name, subdomain, schema_name, description, website, "ABN", type, country)
+      `INSERT INTO public.orgs (name, subdomain, schema_name, description, website, abn, type, country)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
        RETURNING id`,
       [data.name, data.subdomain, data.schemaName, data.description, data.website, data.ABN, data.type, data.country]

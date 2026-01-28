@@ -17,8 +17,19 @@ export class OrgsService {
   }
 
   async createOrgs(orgsData: z.infer<typeof createOrgsSchema>) {
-    const { name, subdomain, description, website, ABN, type, country, first_name, last_name, user_email, user_password } =
-      orgsData;
+    const {
+      name,
+      subdomain,
+      description,
+      website,
+      ABN,
+      type,
+      country,
+      first_name,
+      last_name,
+      user_email,
+      user_password,
+    } = orgsData;
 
     const schemaName = `org_${subdomain}`;
     const client = await this.orgsRepository.getClient();
@@ -48,6 +59,7 @@ export class OrgsService {
       await migrationManager.applyPendingMigrations(schemaName);
 
       // 4. Create auth user
+      // TODO: email_confirm should be false and send confirmation email
       const { data, error } = await supabaseAdmin.auth.admin.createUser({
         email: user_email,
         password: user_password,
@@ -66,7 +78,7 @@ export class OrgsService {
         data.user.id,
         first_name,
         last_name,
-        user_email
+        user_email,
       );
 
       // 6. Activate orgs
@@ -74,7 +86,7 @@ export class OrgsService {
         client,
         orgsId,
         data.user.id,
-        user_email
+        user_email,
       );
 
       await client.query("COMMIT");
