@@ -38,3 +38,13 @@
 [2026-01-28 09:07:06] [INFO]: ✅ Migration completed: 001_create_orgs_table.sql
 [2026-01-28 09:07:06] [INFO]: Running migration: 002_create_schema_migrations_table.sql
 [2026-01-28 09:07:06] [INFO]: ✅ Migration completed: 002_create_schema_migrations_table.sql
+[2026-01-28 09:22:54] [INFO]: New database connection established
+[2026-01-28 09:22:54] [INFO]: Database connection successful: Wed Jan 28 2026 09:22:54 GMT+0500 (Pakistan Standard Time)
+[2026-01-28 09:23:20] [INFO]: New database connection established
+[2026-01-28 09:23:20] [INFO]: Database connection successful: Wed Jan 28 2026 09:23:20 GMT+0500 (Pakistan Standard Time)
+[2026-01-28 09:23:25] [INFO]: New database connection established
+[2026-01-28 09:23:25] [INFO]: Database connection successful: Wed Jan 28 2026 09:23:25 GMT+0500 (Pakistan Standard Time)
+[2026-01-28 09:23:29] [INFO]: New database connection established
+[2026-01-28 09:23:29] [INFO]: Database connection successful: Wed Jan 28 2026 09:23:29 GMT+0500 (Pakistan Standard Time)
+[2026-01-28 09:23:42] [INFO]: New database connection established
+[2026-01-28 09:23:42] [INFO]: Database connection successful: Wed Jan 28 2026 09:23:42 GMT+0500 (Pakistan Standard Time)

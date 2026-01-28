@@ -1,6 +1,7 @@
 import express from "express";
-import httpLogger from "./middleware/httpLogger";
+import "./config/env";
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
+import httpLogger from "./middleware/httpLogger";
 const app = express();
 
 // Middlewares
