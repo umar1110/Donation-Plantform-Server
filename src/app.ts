@@ -4,6 +4,15 @@ import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
 import httpLogger from "./middleware/httpLogger";
 const app = express();
 
+// Cors
+import cors from "cors";
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN?.split(",") || "*",
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
+
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

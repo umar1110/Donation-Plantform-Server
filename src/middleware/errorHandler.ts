@@ -1,15 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import  logger  from '../utils/logger';
 import { ZodError } from 'zod';
-
-export interface ApiError extends Error {
-  statusCode?: number;
-  isOperational?: boolean; // Indicates if the error is expected (operational) or a programming error
-  
-}
+import { ApiError } from '../utils/apiError';
 
 export function errorHandler(
-  err: ApiError,
+  err: Error,
   req: Request,
   res: Response,
   next: NextFunction
@@ -31,11 +26,12 @@ export function errorHandler(
     });
   }
   
-  // Handle operational errors
-  if (err.isOperational) {
-    return res.status(err.statusCode || 500).json({
+  // Handle ApiError (operational errors)
+  if (err instanceof ApiError) {
+    return res.status(err.statusCode).json({
       success: false,
-      message: err.message
+      message: err.message,
+      ...(err.errors.length > 0 && { errors: err.errors })
     });
   }
   

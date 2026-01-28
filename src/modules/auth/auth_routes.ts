@@ -5,8 +5,8 @@ import { requireAuth } from "../../middleware/auth-handlers";
 
 const router = express.Router();
 
-router.post("/login", signInUser);
-router.get("/me", requireAuth, getMeController);
-router.post("/refresh-token", refreshToken);
+router.post("/auth/login", signInUser);
+router.get("/auth/me", requireAuth, getMeController);
+router.post("/auth/refresh-token", refreshToken);
 
 export default router;
