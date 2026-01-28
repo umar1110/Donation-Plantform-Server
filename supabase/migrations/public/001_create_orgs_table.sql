@@ -11,8 +11,15 @@ CREATE TABLE IF NOT EXISTS public.tenants (
     
     -- Basic Information
     name VARCHAR(255) NOT NULL,
+    website VARCHAR(255) NULL,
+    description TEXT NOT NULL,
+    ABN VARCHAR(20) NULL,
+    type VARCHAR(50) NULL,
+    country VARCHAR(100) NULL,
+
     subdomain VARCHAR(100) UNIQUE NOT NULL,
     schema_name VARCHAR(100) UNIQUE NOT NULL,
+    
     
     -- Owner Information (from Supabase Auth)
     owner_id UUID NULL, -- References auth.users(id) from Supabase
@@ -49,9 +56,26 @@ CREATE INDEX IF NOT EXISTS idx_tenants_schema_name
 CREATE INDEX IF NOT EXISTS idx_tenants_status
   ON public.tenants(status);
 
+CREATE INDEX IF NOT EXISTS idx_tenants_plan
+  ON public.tenants(plan);
+
+CREATE INDEX IF NOT EXISTS idx_tenants_name
+  ON public.tenants(name);
+
+CREATE INDEX IF NOT EXISTS idx_tenants_abn
+  ON public.tenants(ABN);
+
+CREATE INDEX IF NOT EXISTS idx_tenants_type
+  ON public.tenants(type);
+
+CREATE INDEX IF NOT EXISTS idx_tenants_country
+  ON public.tenants(country);
+
 CREATE INDEX IF NOT EXISTS idx_tenants_deleted_at
   ON public.tenants(deleted_at)
   WHERE deleted_at IS NULL;
+
+
 -- Create updated_at trigger function
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
@@ -104,6 +128,7 @@ COMMENT ON COLUMN public.tenants.schema_name IS 'PostgreSQL schema name where th
 COMMENT ON COLUMN public.tenants.subdomain IS 'Unique subdomain for this tenant (e.g., greenvalley.school.com)';
 COMMENT ON COLUMN public.tenants.settings IS 'Tenant-specific settings (branding, features, etc.)';
 COMMENT ON COLUMN public.tenants.metadata IS 'Additional metadata (address, contact info, etc.)';
+
 
 -- Grant permissions
 GRANT SELECT, INSERT, UPDATE ON public.tenants TO authenticated;

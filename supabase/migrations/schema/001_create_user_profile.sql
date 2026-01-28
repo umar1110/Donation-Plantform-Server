@@ -6,7 +6,9 @@ CREATE TABLE IF NOT EXISTS user_profiles(
     first_name VARCHAR(100),
     last_name VARCHAR(100),
     email VARCHAR(255) UNIQUE NOT NULL,
-    is_admin BOOLEAN DEFAULT FALSE,
+    
+    is_super_admin BOOLEAN DEFAULT FALSE,
+    is_organization_admin BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
