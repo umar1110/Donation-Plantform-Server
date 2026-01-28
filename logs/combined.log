@@ -22,3 +22,19 @@
 [2026-01-28 07:40:23] [INFO]: Database connection successful: Wed Jan 28 2026 07:40:23 GMT+0500 (Pakistan Standard Time)
 [2026-01-28 07:40:33] [INFO]: New database connection established
 [2026-01-28 07:40:33] [INFO]: Database connection successful: Wed Jan 28 2026 07:40:33 GMT+0500 (Pakistan Standard Time)
+[2026-01-28 09:04:06] [INFO]: New database connection established
+[2026-01-28 09:04:06] [INFO]: Starting public schema migrations...
+[2026-01-28 09:04:06] [INFO]: Running migration: 001_create_orgs_table.sql
+[2026-01-28 09:04:06] [INFO]: ✅ Migration completed: 001_create_orgs_table.sql
+[2026-01-28 09:04:06] [INFO]: Running migration: 002_create_schema_migrations_table.sql
+[2026-01-28 09:04:06] [INFO]: ✅ Migration completed: 002_create_schema_migrations_table.sql
+[2026-01-28 09:05:59] [INFO]: New database connection established
+[2026-01-28 09:05:59] [INFO]: Starting public schema migrations...
+[2026-01-28 09:05:59] [INFO]: Running migration: 001_create_orgs_table.sql
+[2026-01-28 09:05:59] [ERROR]: ❌ Migration failed: cannot change name of input parameter "p_tenant_name" {"length":167,"name":"error","severity":"ERROR","code":"42P13","hint":"Use DROP FUNCTION generate_schema_name(text) first.","file":"pg_proc.c","line":"486","routine":"ProcedureCreate","stack":"error: cannot change name of input parameter \"p_tenant_name\"\n    at /Users/mac/My Projects/DonationPlatform/server/node_modules/pg/lib/client.js:588:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async SchemaMigrationManager.runPublicMigrations (/Users/mac/My Projects/DonationPlatform/server/src/utils/schema-migration-manager.ts:158:9)\n    at async runAllPublicMigrations (/Users/mac/My Projects/DonationPlatform/server/src/scripts/run-migrations.ts:6:5)"}
+[2026-01-28 09:07:06] [INFO]: New database connection established
+[2026-01-28 09:07:06] [INFO]: Starting public schema migrations...
+[2026-01-28 09:07:06] [INFO]: Running migration: 001_create_orgs_table.sql
+[2026-01-28 09:07:06] [INFO]: ✅ Migration completed: 001_create_orgs_table.sql
+[2026-01-28 09:07:06] [INFO]: Running migration: 002_create_schema_migrations_table.sql
+[2026-01-28 09:07:06] [INFO]: ✅ Migration completed: 002_create_schema_migrations_table.sql

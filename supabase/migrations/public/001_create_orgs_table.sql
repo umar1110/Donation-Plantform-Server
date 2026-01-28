@@ -1,12 +1,12 @@
--- Migration 001: Create Tenants (Schools) Table
--- This table lives in the public schema and manages all tenants
+-- Migration 001: Create orgs (Schools) Table
+-- This table lives in the public schema and manages all orgs
 
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
--- Create tenants table
-CREATE TABLE IF NOT EXISTS public.tenants (
+-- Create orgs table
+CREATE TABLE IF NOT EXISTS public.orgs (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     
     -- Basic Information
@@ -40,39 +40,39 @@ CREATE TABLE IF NOT EXISTS public.tenants (
     
     -- Constraints
     CONSTRAINT valid_subdomain CHECK (subdomain ~* '^[a-z0-9][a-z0-9-]*[a-z0-9]$'),
-    CONSTRAINT valid_schema_name CHECK (schema_name ~* '^tenant_[a-z0-9_]+$')
+    CONSTRAINT valid_schema_name CHECK (schema_name ~* '^org_[a-z0-9_]+$')
 );
 
 -- Create indexes for performance
-CREATE INDEX IF NOT EXISTS idx_tenants_owner_id
-  ON public.tenants(owner_id);
+CREATE INDEX IF NOT EXISTS idx_orgs_owner_id
+  ON public.orgs(owner_id);
 
-CREATE INDEX IF NOT EXISTS idx_tenants_subdomain
-  ON public.tenants(subdomain);
+CREATE INDEX IF NOT EXISTS idx_orgs_subdomain
+  ON public.orgs(subdomain);
 
-CREATE INDEX IF NOT EXISTS idx_tenants_schema_name
-  ON public.tenants(schema_name);
+CREATE INDEX IF NOT EXISTS idx_orgs_schema_name
+  ON public.orgs(schema_name);
 
-CREATE INDEX IF NOT EXISTS idx_tenants_status
-  ON public.tenants(status);
+CREATE INDEX IF NOT EXISTS idx_orgs_status
+  ON public.orgs(status);
 
-CREATE INDEX IF NOT EXISTS idx_tenants_plan
-  ON public.tenants(plan);
+CREATE INDEX IF NOT EXISTS idx_orgs_plan
+  ON public.orgs(plan);
 
-CREATE INDEX IF NOT EXISTS idx_tenants_name
-  ON public.tenants(name);
+CREATE INDEX IF NOT EXISTS idx_orgs_name
+  ON public.orgs(name);
 
-CREATE INDEX IF NOT EXISTS idx_tenants_abn
-  ON public.tenants(ABN);
+CREATE INDEX IF NOT EXISTS idx_orgs_abn
+  ON public.orgs(ABN);
 
-CREATE INDEX IF NOT EXISTS idx_tenants_type
-  ON public.tenants(type);
+CREATE INDEX IF NOT EXISTS idx_orgs_type
+  ON public.orgs(type);
 
-CREATE INDEX IF NOT EXISTS idx_tenants_country
-  ON public.tenants(country);
+CREATE INDEX IF NOT EXISTS idx_orgs_country
+  ON public.orgs(country);
 
-CREATE INDEX IF NOT EXISTS idx_tenants_deleted_at
-  ON public.tenants(deleted_at)
+CREATE INDEX IF NOT EXISTS idx_orgs_deleted_at
+  ON public.orgs(deleted_at)
   WHERE deleted_at IS NULL;
 
 
@@ -86,14 +86,14 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Add trigger to auto-update updated_at
-CREATE OR REPLACE TRIGGER update_tenants_updated_at
-    BEFORE UPDATE ON public.tenants
+CREATE OR REPLACE TRIGGER update_orgs_updated_at
+    BEFORE UPDATE ON public.orgs
     FOR EACH ROW
     EXECUTE FUNCTION update_updated_at_column();
 
 
--- Function to generate schema name from tenant name
-CREATE OR REPLACE FUNCTION generate_schema_name(p_tenant_name TEXT)
+-- Function to generate schema name from org name
+CREATE OR REPLACE FUNCTION generate_schema_name(p_org_name TEXT)
 RETURNS TEXT AS $$
 DECLARE
     v_base_name TEXT;
@@ -102,14 +102,14 @@ DECLARE
 BEGIN
     -- Clean and normalize the name
     v_base_name :=
-        'tenant_' || regexp_replace(lower(p_tenant_name), '[^a-z0-9]', '_', 'g');
+        'org_' || regexp_replace(lower(p_org_name), '[^a-z0-9]', '_', 'g');
 
     v_schema_name := v_base_name;
 
     -- Ensure uniqueness
     WHILE EXISTS (
         SELECT 1
-        FROM public.tenants t
+        FROM public.orgs t
         WHERE t.schema_name = v_schema_name
     ) LOOP
         v_counter := v_counter + 1;
@@ -122,14 +122,14 @@ $$ LANGUAGE plpgsql;
 
 
 -- Comments for documentation
-COMMENT ON TABLE public.tenants IS 'Main tenant (school) table - each tenant gets its own schema';
-COMMENT ON COLUMN public.tenants.owner_id IS 'References auth.users - the user who created/owns this tenant';
-COMMENT ON COLUMN public.tenants.schema_name IS 'PostgreSQL schema name where this tenant data lives';
-COMMENT ON COLUMN public.tenants.subdomain IS 'Unique subdomain for this tenant (e.g., greenvalley.school.com)';
-COMMENT ON COLUMN public.tenants.settings IS 'Tenant-specific settings (branding, features, etc.)';
-COMMENT ON COLUMN public.tenants.metadata IS 'Additional metadata (address, contact info, etc.)';
+COMMENT ON TABLE public.orgs IS 'Main org (school) table - each org gets its own schema';
+COMMENT ON COLUMN public.orgs.owner_id IS 'References auth.users - the user who created/owns this org';
+COMMENT ON COLUMN public.orgs.schema_name IS 'PostgreSQL schema name where this org data lives';
+COMMENT ON COLUMN public.orgs.subdomain IS 'Unique subdomain for this org (e.g., greenvalley.school.com)';
+COMMENT ON COLUMN public.orgs.settings IS 'org-specific settings (branding, features, etc.)';
+COMMENT ON COLUMN public.orgs.metadata IS 'Additional metadata (address, contact info, etc.)';
 
 
 -- Grant permissions
-GRANT SELECT, INSERT, UPDATE ON public.tenants TO authenticated;
-GRANT SELECT ON public.tenants TO anon;
+GRANT SELECT, INSERT, UPDATE ON public.orgs TO authenticated;
+GRANT SELECT ON public.orgs TO anon;
