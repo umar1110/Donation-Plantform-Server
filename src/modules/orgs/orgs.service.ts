@@ -64,6 +64,10 @@ export class OrgsService {
         email: user_email,
         password: user_password,
         email_confirm: true,
+        user_metadata: {
+          orgsId: orgsId,
+          schemaName: schemaName,
+        },
       });
 
       if (error || !data.user) {
