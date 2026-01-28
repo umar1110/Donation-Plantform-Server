@@ -21,7 +21,7 @@ export async function createOrgs(
 
     // 1. Create orgs record (temporary state)
     const orgsRes = await client.query(
-      `INSERT INTO public.orgss (name, subdomain, schema_name)
+      `INSERT INTO public.orgs (name, subdomain, schema_name)
        VALUES ($1, $2, $3)
        RETURNING id`,
       [name, subdomain, schemaName],
@@ -59,7 +59,7 @@ export async function createOrgs(
 
     // 6. Activate orgs
     await client.query(
-      `UPDATE public.orgss
+      `UPDATE public.orgs
      SET owner_id = $1,
          owner_email = $2,
          status = 'active'

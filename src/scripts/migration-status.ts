@@ -16,13 +16,13 @@ async function showMigrationStatus() {
             console.log(`  ${m.version}. ${m.name}`);
         });
         
-        // Get status for all orgss
+        // Get status for all orgs
         const status = await manager.getMigrationStatus();
         
         console.log('\n=== Orgs Schemas ===');
         
         if (status.length === 0) {
-            console.log('  No orgss found');
+            console.log('  No orgs found');
         } else {
             const maxSchemaLen = Math.max(...status.map(s => s.schema.length));
             

@@ -1,6 +1,5 @@
 import express from "express";
 import httpLogger from "./middleware/httpLogger";
-import testRoutes from "./modules/test/test.routes";
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
 const app = express();
 
@@ -11,11 +10,10 @@ app.use(httpLogger);
 
 // Routes
 import orgsRoutes from "./modules/orgs/orgs.routes";
-app.use("/api/v1", orgsRoutes);
 app.get("/health", (req: express.Request, res: express.Response) => {
   res.json({ status: "OK" });
 });
-app.use("/", testRoutes);
+app.use("/api/v1", orgsRoutes);
 
 // Error handling (must be after routes)
 app.use(notFoundHandler);

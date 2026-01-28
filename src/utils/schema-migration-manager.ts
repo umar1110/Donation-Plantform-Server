@@ -127,9 +127,9 @@ export class SchemaMigrationManager {
     return pending.length;
   }
 
-  async applyToAllOrgss(): Promise<{ schema: string; count: number }[]> {
+  async applyToAllOrgs(): Promise<{ schema: string; count: number }[]> {
     const result = await pool.query<{ schema_name: string }>(
-      `SELECT schema_name FROM public.orgss WHERE deleted_at IS NULL`,
+      `SELECT schema_name FROM public.orgs WHERE deleted_at IS NULL`,
     );
 
     const results = [];
@@ -167,7 +167,7 @@ export class SchemaMigrationManager {
     }
   }
   /**
-   * Get migration status for all orgss
+   * Get migration status for all orgs
    */
   async getMigrationStatus(): Promise<
     Array<{
@@ -185,7 +185,7 @@ export class SchemaMigrationManager {
 
     // Fetch orgs schemas
     const result = await pool.query<{ schema_name: string }>(
-      `SELECT schema_name FROM public.orgss WHERE deleted_at IS NULL`,
+      `SELECT schema_name FROM public.orgs WHERE deleted_at IS NULL`,
     );
 
     const status = [];

@@ -3,6 +3,6 @@ import express from 'express';
 const router = express.Router();
 import { registerNewOrgs } from './orgs.controller';
 
-router.post('/orgss', registerNewOrgs);
+router.post('/orgs', registerNewOrgs);
 
 export default router;

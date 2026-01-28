@@ -7,7 +7,7 @@ export class OrgsService {
     async getOrgsInfo(orgsId: string) {
         // Logic to get orgs info from database
         const orgs = await pool.query(
-            'SELECT * FROM public.orgss WHERE id = $1',
+            'SELECT * FROM public.orgs WHERE id = $1',
             [orgsId]
         );
 
