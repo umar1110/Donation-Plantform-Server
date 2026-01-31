@@ -10,8 +10,72 @@ import {
 import { insertDonation } from "./donations_repository";
 import type { IDonation, IDonationCreate } from "./donations_types";
 import type { IDonorCreate } from "../donors/donors_types";
+import { getNextReceiptNumber, insertReceipt } from "../receipts/receipts_repository";
+import { OrgsRepository } from "../orgs/orgs.repository";
+
+const orgsRepository = new OrgsRepository();
+
+/** Combines org address parts into one string for receipt */
+function buildOrgAddress(org: {
+  address?: string;
+  city?: string;
+  state_province?: string;
+  country?: string;
+}): string {
+  const parts = [
+    org.address,
+    org.city,
+    org.state_province,
+    org.country,
+  ].filter(Boolean);
+  return parts.join(", ") || "";
+}
+
+/** Creates a receipt for a donation. Call inside same transaction as donation insert. */
+async function createReceiptForDonation(
+  donation: IDonation & { donation_date?: Date },
+  orgId: string,
+  donor: { first_name: string; last_name: string; email?: string } | null,
+  client: Awaited<ReturnType<typeof getClient>>
+): Promise<void> {
+  const org = await orgsRepository.selectOrgsByIdWithClient(orgId, client);
+  if (!org) throw new Error("Org not found for receipt");
+
+  const receiptNumber = await getNextReceiptNumber(orgId, client);
+  const donorName = donor
+    ? `${donor.first_name} ${donor.last_name}`.trim() || "Unknown"
+    : "Anonymous Donor";
+  const donorEmail = donor?.email ?? null;
+
+  const donationDate = donation.donation_date ?? new Date();
+  const retentionUntil = new Date(donationDate);
+  retentionUntil.setFullYear(retentionUntil.getFullYear() + 7); // ATO: keep 7 years
+
+  await insertReceipt(
+    {
+      org_id: orgId,
+      donation_id: donation.id,
+      receipt_number: receiptNumber,
+      donor_name: donorName,
+      donor_email: donorEmail,
+      amount: donation.amount,
+      currency: donation.currency,
+      is_amount_split: donation.is_amount_split,
+      tax_deductible_amount: donation.tax_deductible_amount,
+      tax_non_deductible_amount: donation.tax_non_deductible_amount,
+      donation_date: donationDate,
+      org_name: org.name,
+      org_abn: org.abn ?? org.ABN ?? null,
+      org_address: buildOrgAddress(org),
+      retention_until: retentionUntil,
+      issued_by_admin_id: null,
+    },
+    client
+  );
+}
 
 export class DonationsService {
+  /** Anonymous: no donor, receipt shows "Anonymous Donor" */
   async createDonationForAnonymousDonor(
     donationData: IDonationCreate
   ): Promise<IDonation> {
@@ -22,6 +86,12 @@ export class DonationsService {
     try {
       await client.query("BEGIN");
       const donation = await insertDonation(donationData, client);
+      await createReceiptForDonation(
+        donation,
+        donationData.org_id,
+        null, // no donor info
+        client
+      );
       await client.query("COMMIT");
       return donation;
     } catch (err) {
@@ -32,6 +102,7 @@ export class DonationsService {
     }
   }
 
+  /** Existing donor: link donation by donor_id, create receipt with donor name */
   async createDonationForDonor(
     donationData: IDonationCreate,
     donorId: string
@@ -61,6 +132,12 @@ export class DonationsService {
         { ...donationData, donor_id: donorId },
         client
       );
+      await createReceiptForDonation(
+        donation,
+        donationData.org_id,
+        donor as { first_name: string; last_name: string; email?: string },
+        client
+      );
       await client.query("COMMIT");
       return donation;
     } catch (err) {
@@ -71,6 +148,7 @@ export class DonationsService {
     }
   }
 
+  /** New donor + donation in one go: create donor, link to org, then donation + receipt */
   async createDonorAndDonation(
     donorData: IDonorCreate,
     donationData: IDonationCreate,
@@ -105,7 +183,12 @@ export class DonationsService {
         { ...donationData, donor_id: donor.id },
         client
       );
-
+      await createReceiptForDonation(
+        donation,
+        org_id,
+        donor as { first_name: string; last_name: string; email?: string },
+        client
+      );
       await client.query("COMMIT");
       return { donor, donation };
     } catch (err) {

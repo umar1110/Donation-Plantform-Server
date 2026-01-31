@@ -1,0 +1,25 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.insertDonation = insertDonation;
+const database_1 = require("../../config/database");
+function queryClient(client) {
+    return client ?? database_1.pool;
+}
+async function insertDonation(data, client) {
+    const q = queryClient(client);
+    const result = await q.query(`INSERT INTO donations (donor_id, amount, is_amount_split, tax_deductible_amount, tax_non_deductible_amount, currency, payment_method, message, is_anonymous, org_id)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+     RETURNING *`, [
+        data.donor_id ?? null,
+        data.amount,
+        data.is_amount_split ?? false,
+        data.tax_deductible_amount ?? 0,
+        data.tax_non_deductible_amount ?? 0,
+        data.currency,
+        data.payment_method,
+        data.message ?? null,
+        data.is_anonymous ?? false,
+        data.org_id,
+    ]);
+    return result.rows[0];
+}

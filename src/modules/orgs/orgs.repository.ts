@@ -91,4 +91,40 @@ export class OrgsRepository {
     ]);
     return result.rows[0];
   }
+
+  /** Same as selectOrgsById but uses client (for use inside a transaction) */
+  async selectOrgsByIdWithClient(orgsId: string, client: PoolClient) {
+    const result = await client.query(
+      "SELECT * FROM public.orgs WHERE id = $1",
+      [orgsId]
+    );
+    return result.rows[0];
+  }
+
+  /** Get next receipt seq (e.g. 1, 2, 3). Resets to 1 each new year. Needs transaction. */
+  async getAndIncrementReceiptSequence(
+    orgId: string,
+    client: PoolClient
+  ): Promise<{ prefix: string; sequence: number; year: number }> {
+    const result = await client.query(
+      `UPDATE public.orgs
+       SET receipt_sequence = CASE
+         WHEN COALESCE(receipt_sequence_year, 0) < EXTRACT(YEAR FROM NOW())::INT THEN 1
+         ELSE COALESCE(receipt_sequence, 0) + 1
+       END,
+       receipt_sequence_year = EXTRACT(YEAR FROM NOW())::INT
+       WHERE id = $1
+       RETURNING receipt_prefix, receipt_sequence, receipt_sequence_year`,
+      [orgId]
+    );
+    if (!result.rows[0]) {
+      throw new Error("Org not found for receipt sequence");
+    }
+    const row = result.rows[0];
+    return {
+      prefix: row.receipt_prefix,
+      sequence: row.receipt_sequence,
+      year: row.receipt_sequence_year,
+    };
+  }
 }

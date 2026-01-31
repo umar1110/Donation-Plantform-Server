@@ -10,6 +10,7 @@ export interface IDonation {
   payment_method: string;
   message?: string | null;
   is_anonymous: boolean;
+  donation_date?: Date;
   created_at?: Date;
   updated_at?: Date;
 }
