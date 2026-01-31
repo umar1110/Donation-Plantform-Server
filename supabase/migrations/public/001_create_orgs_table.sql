@@ -16,10 +16,20 @@ CREATE TABLE IF NOT EXISTS public.orgs (
     ABN VARCHAR(20) NULL,
     type VARCHAR(50) NULL, -- TODO: Convert in Number or Enum later
     country VARCHAR(100) NOT NULL,
+    state_province VARCHAR(100) NOT NULL, -- Can be state, province, region, etc.
+    city VARCHAR(100) NOT NULL,
+    address TEXT NOT NULL,
 
+
+    -- Unique Identifiers
     subdomain VARCHAR(100) UNIQUE NOT NULL,
     schema_name VARCHAR(100) UNIQUE NOT NULL,
     
+    -- Receipt Number Generation
+    -- Prefix derived from state_province (e.g., "NSW", "VIC", "QLD")
+    receipt_prefix VARCHAR(10) NOT NULL,
+    receipt_sequence INT DEFAULT 0, -- Current sequence number
+    receipt_sequence_year INT DEFAULT EXTRACT(YEAR FROM NOW()), -- Year for sequence reset
     
     -- Owner Information (from Supabase Auth)
     owner_id UUID NULL, -- References auth.users(id) from Supabase

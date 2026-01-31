@@ -25,6 +25,10 @@ export class OrgsService {
       ABN,
       type,
       country,
+      state_province,
+      city,
+      address,
+      receipt_prefix,
       first_name,
       last_name,
       user_email,
@@ -32,6 +36,8 @@ export class OrgsService {
     } = orgsData;
 
     const schemaName = `org_${subdomain}`;
+    // Derive receipt_prefix from state_province if not provided
+    const final_receipt_prefix = receipt_prefix || (state_province ? state_province.toUpperCase() : 'ORG');
     const client = await this.orgsRepository.getClient();
 
     let orgsId: string;
@@ -49,6 +55,10 @@ export class OrgsService {
         ABN,
         type,
         country,
+        state_province,
+        city,
+        address,
+        receipt_prefix: final_receipt_prefix,
       });
 
       // 2. Create schema

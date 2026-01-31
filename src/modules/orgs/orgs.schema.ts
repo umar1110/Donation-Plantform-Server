@@ -8,7 +8,11 @@ const createOrgsSchema = z.object({
     website: z.string().url("Invalid website URL").optional().nullable(),
     ABN: z.string().optional().nullable(),
     type: z.string().optional().nullable(),
-    country: z.string().optional().nullable(),
+    country: z.string("Country is required").min(1, "Country is required"),
+    state_province: z.string("State/Province is required").min(1, "State/Province is required"),
+    city: z.string("City is required").min(1, "City is required"),
+    address: z.string("Address is required").min(5, "Address must be at least 5 characters long"),
+    receipt_prefix: z.string().optional(),
     
     // Owner user fields
     first_name: z.string("First name is required").min(2, "First name must be at least 2 characters long"),

@@ -18,14 +18,31 @@ export class OrgsRepository {
       website?: string | null;
       ABN?: string | null;
       type?: string | null;
-      country?: string | null;
+      country: string;
+      state_province: string;
+      city: string;
+      address: string;
+      receipt_prefix: string;
     }
   ): Promise<string> {
     const result = await client.query(
-      `INSERT INTO public.orgs (name, subdomain, schema_name, description, website, abn, type, country)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      `INSERT INTO public.orgs (name, subdomain, schema_name, description, website, abn, type, country, state_province, city, address, receipt_prefix)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
        RETURNING id`,
-      [data.name, data.subdomain, data.schemaName, data.description, data.website, data.ABN, data.type, data.country]
+      [
+        data.name,
+        data.subdomain,
+        data.schemaName,
+        data.description,
+        data.website,
+        data.ABN,
+        data.type,
+        data.country,
+        data.state_province,
+        data.city,
+        data.address,
+        data.receipt_prefix,
+      ]
     );
     return result.rows[0].id;
   }
