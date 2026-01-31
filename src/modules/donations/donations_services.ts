@@ -1,99 +1,118 @@
-import { z } from "zod";
+import { getClient } from "../../config/database";
 import {
   insertDonorProfile,
   linkDonorToOrg,
+  getDonorById,
+  findDonorByEmailAndOrg,
+  updateDonorTotals,
+  updateOrgsDonorsTotals,
 } from "../donors/donors_repository";
-import { createDonorSchema } from "../donors/donors_schema";
 import { insertDonation } from "./donations_repository";
-import { createDonationSchema } from "./donations_schema";
-import { supabase } from "../../config/supabase";
-import { IDonationCreate } from "./donations_types";
-import { IDonorCreate } from "../donors/donots_types";
+import type { IDonation, IDonationCreate } from "./donations_types";
+import type { IDonorCreate } from "../donors/donors_types";
 
 export class DonationsService {
-  async createDonationForAnonymousDonor(donationData: IDonationCreate) {
+  async createDonationForAnonymousDonor(
+    donationData: IDonationCreate
+  ): Promise<IDonation> {
     if (!donationData.is_anonymous) {
       throw new Error("Donation is not marked as anonymous");
     }
-    // Insert donation logic goes here
-    const donation = await insertDonation(donationData);
-    return donation;
+    const client = await getClient();
+    try {
+      await client.query("BEGIN");
+      const donation = await insertDonation(donationData, client);
+      await client.query("COMMIT");
+      return donation;
+    } catch (err) {
+      await client.query("ROLLBACK");
+      throw err;
+    } finally {
+      client.release();
+    }
   }
 
-  async createDonationForDonor(donationData: IDonationCreate, donorId: string) {
-    // 1- Check donor with donorId
-    const donor = await supabase
-      .from("donor_profiles")
-      .select("*")
-      .eq("id", donorId)
-      .single();
-    if (donor.error || !donor.data) {
-      throw new Error("Donor not found");
-    }
-    // 2- Update total_donation of donor in donor profile
-    const donationAmount = donationData?.is_amount_split
-      ? donationData.tax_deductible_amount
+  async createDonationForDonor(
+    donationData: IDonationCreate,
+    donorId: string
+  ): Promise<IDonation> {
+    const donationAmount = donationData.is_amount_split
+      ? (donationData.tax_deductible_amount ?? 0)
       : donationData.amount;
 
-    await supabase
-      .from("donor_profiles")
-      .update({
-        total_donations: (donor.data.total_donations || 0) + donationAmount,
-        donation_count: (donor.data.donation_count || 0) + 1,
-      })
-      .eq("id", donorId);
+    const client = await getClient();
+    try {
+      await client.query("BEGIN");
 
-    //   Update total_donations and donation_count in orgs_donors table
-    const orgDonorLink = await supabase
-      .from("orgs_donors")
-      .select("*")
-      .eq("donor_id", donorId)
-      .eq("org_id", donationData.org_id)
-      .single();
-    if (orgDonorLink.data) {
-      await supabase
-        .from("orgs_donors")
-        .update({
-          total_donations:
-            (orgDonorLink.data.total_donations || 0) + donationAmount,
-          donation_count: (orgDonorLink.data.donation_count || 0) + 1,
-        })
-        .eq("donor_id", donorId)
-        .eq("org_id", donationData.org_id);
+      const donor = await getDonorById(donorId, client);
+      if (!donor) {
+        throw new Error("Donor not found");
+      }
+
+      await updateDonorTotals(donorId, donationAmount, client);
+      await updateOrgsDonorsTotals(
+        donationData.org_id,
+        donorId,
+        donationAmount,
+        client
+      );
+
+      const donation = await insertDonation(
+        { ...donationData, donor_id: donorId },
+        client
+      );
+      await client.query("COMMIT");
+      return donation;
+    } catch (err) {
+      await client.query("ROLLBACK");
+      throw err;
+    } finally {
+      client.release();
     }
-
-    // 3- Insert donation
-    donationData.donor_id = donorId;
-    const donation = await insertDonation(donationData);
-    return donation;
   }
 
   async createDonorAndDonation(
     donorData: IDonorCreate,
     donationData: IDonationCreate,
-    org_id: string,
-  ) {
-    // Check if donor with same email exists in the organization
-    const existingDonor = await supabase
-      .from("donor_profiles")
-      .select("*")
-      .eq("email", donorData.email)
-      .eq("org_id", org_id)
-      .single();
+    org_id: string
+  ): Promise<{ donor: Record<string, unknown>; donation: IDonation }> {
+    const client = await getClient();
+    try {
+      await client.query("BEGIN");
 
-    if (existingDonor.data) {
-      throw new Error(
-        "Donor with this email already exists in the organization",
+      const existingDonor = await findDonorByEmailAndOrg(
+        donorData.email,
+        org_id,
+        client
       );
-    }
+      if (existingDonor) {
+        throw new Error(
+          "Donor with this email already exists in the organization"
+        );
+      }
 
-    // 1. Insert donor profile
-    const donor = await insertDonorProfile(donorData);
-    // 2. Link donor to org
-    await linkDonorToOrg(org_id, donor.id);
-    // 3. Insert donation
-    donationData.donor_id = donor.id;
-    const donation = await this.createDonationForDonor(donationData, donor.id);
-    return { donor, donation };
+      const donor = await insertDonorProfile(donorData, client);
+      await linkDonorToOrg(org_id, donor.id, client);
+
+      const donationAmount = donationData.is_amount_split
+        ? (donationData.tax_deductible_amount ?? 0)
+        : donationData.amount;
+
+      await updateDonorTotals(donor.id, donationAmount, client);
+      await updateOrgsDonorsTotals(org_id, donor.id, donationAmount, client);
+
+      const donation = await insertDonation(
+        { ...donationData, donor_id: donor.id },
+        client
+      );
+
+      await client.query("COMMIT");
+      return { donor, donation };
+    } catch (err) {
+      await client.query("ROLLBACK");
+      throw err;
+    } finally {
+      client.release();
+    }
   }
 }

@@ -993,3 +993,20 @@
 [2026-01-31 20:06:38] [INFO]: Database connection successful: Sat Jan 31 2026 20:06:38 GMT+0500 (Pakistan Standard Time)
 [2026-01-31 20:07:39] [INFO]: New database connection established
 [2026-01-31 20:07:39] [INFO]: Database connection successful: Sat Jan 31 2026 20:07:39 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 20:11:13] [INFO]: New database connection established
+[2026-01-31 20:11:13] [INFO]: Database connection successful: Sat Jan 31 2026 20:11:13 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 20:11:31] [INFO]: New database connection established
+[2026-01-31 20:11:31] [INFO]: Database connection successful: Sat Jan 31 2026 20:11:31 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 20:11:36] [INFO]: New database connection established
+[2026-01-31 20:11:36] [INFO]: Database connection successful: Sat Jan 31 2026 20:11:36 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 20:11:45] [INFO]: New database connection established
+[2026-01-31 20:11:45] [INFO]: Database connection successful: Sat Jan 31 2026 20:11:45 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 20:12:24] [INFO]: New database connection established
+[2026-01-31 20:12:24] [INFO]: Database connection successful: Sat Jan 31 2026 20:12:24 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 20:12:43] [INFO]: New database connection established
+[2026-01-31 20:12:43] [INFO]: Database connection successful: Sat Jan 31 2026 20:12:43 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 20:12:53] [INFO]: New database connection established
+[2026-01-31 20:12:53] [INFO]: Database connection successful: Sat Jan 31 2026 20:12:53 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 20:16:10] [INFO]: New database connection established
+[2026-01-31 20:16:10] [ERROR]: Error occurred: Donor with this email already exists in the organization {"stack":"Error: Donor with this email already exists in the organization\n    at DonationsService.createDonorAndDonation (/Users/mac/My Projects/DonationPlatform/server/src/modules/donations/donations_services.ts:89:15)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at addNewDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/donations/donations_controller.ts:82:18)","path":"/api/v1/donations","method":"POST"}
+[2026-01-31 20:17:53] [INFO]: New database connection established

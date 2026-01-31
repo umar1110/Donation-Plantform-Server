@@ -1,13 +1,22 @@
+import type { PoolClient } from "pg";
 import { pool } from "../../config/database";
-import { IDonationCreate } from "./donations_types";
+import type { IDonation, IDonationCreate } from "./donations_types";
 
-export async function insertDonation(data: IDonationCreate): Promise<string> {
-  const result = await pool.query(
-    `INSERT INTO donations (donor_id, amount, is_amount_split, tax_deductible_amount, tax_non_deductible_amount, currency, payment_method, message, is_anonymous,org_id)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-       RETURNING id`,
+function queryClient(client: PoolClient | undefined) {
+  return client ?? pool;
+}
+
+export async function insertDonation(
+  data: IDonationCreate,
+  client?: PoolClient
+): Promise<IDonation> {
+  const q = queryClient(client);
+  const result = await q.query<IDonation>(
+    `INSERT INTO donations (donor_id, amount, is_amount_split, tax_deductible_amount, tax_non_deductible_amount, currency, payment_method, message, is_anonymous, org_id)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+     RETURNING *`,
     [
-      data.donor_id || null,
+      data.donor_id ?? null,
       data.amount,
       data.is_amount_split ?? false,
       data.tax_deductible_amount ?? 0,
@@ -17,7 +26,7 @@ export async function insertDonation(data: IDonationCreate): Promise<string> {
       data.message ?? null,
       data.is_anonymous ?? false,
       data.org_id,
-    ],
+    ]
   );
-  return result.rows[0].id;
+  return result.rows[0];
 }

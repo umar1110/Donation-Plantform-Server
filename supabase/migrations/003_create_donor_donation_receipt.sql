@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS donations (
     notes TEXT,
     metadata JSONB DEFAULT '{}',
     created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
 
     -- Constraints
     CONSTRAINT valid_tax_split CHECK (
