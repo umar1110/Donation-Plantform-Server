@@ -15,13 +15,14 @@ CREATE TABLE IF NOT EXISTS donors (
 CREATE TABLE IF NOT EXISTS donations (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     org_id UUID NOT NULL REFERENCES orgs(id) ON DELETE CASCADE,
-    donor_id UUID NOT NULL REFERENCES donors(id) ON DELETE CASCADE,
+    donor_id UUID NULL REFERENCES donors(id) ON DELETE CASCADE,
     amount NUMERIC(10, 2) NOT NULL CHECK (amount > 0),
     is_amount_split BOOLEAN DEFAULT FALSE,
     tax_deductible_amount NUMERIC(10, 2) DEFAULT 0 CHECK (tax_deductible_amount >= 0),
     tax_non_deductible_amount NUMERIC(10, 2) DEFAULT 0 CHECK (tax_non_deductible_amount >= 0),
     currency VARCHAR(10) NOT NULL DEFAULT 'USD',
     donation_date TIMESTAMPTZ DEFAULT NOW(),
+    message TEXT,
     payment_method VARCHAR(50) NOT NULL DEFAULT 'cash' CHECK (
         payment_method IN ('cash', 'check', 'bank_transfer', 'stripe', 'other')
     ),

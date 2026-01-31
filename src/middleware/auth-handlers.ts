@@ -31,7 +31,7 @@ export async function requireAuth(
       throw new ApiError(404, "User profile not found in organization");
     }
 
-    // Attach user and schema info to request object
+    // Attach user and org
     req.user = user as IUser;
     next();
   } catch (err) {

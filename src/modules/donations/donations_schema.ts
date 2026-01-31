@@ -4,7 +4,6 @@ import { createDonorSchema } from "../donors/donors_schema";
 
 const createDonationSchema = z
   .object({
-   
     amount: z.number("Amount is required").positive("Amount must be positive"),
     is_amount_split: z.boolean().optional().default(false),
     tax_deductible_amount: z
@@ -24,16 +23,23 @@ const createDonationSchema = z
       .string("Payment method is required")
       .min(2, "Payment method must be at least 2 characters long"),
     message: z.string().optional().nullable(),
-    anonymous: z.boolean().optional().default(false),
-
-    // If not donorId than donor data
+    org_id: z.uuid("Organization ID is required."),
+    // Can be anonymous donation
+    is_anonymous: z.boolean().optional().default(false),
     donor_id: z.string().uuid("Invalid Donor ID").optional(),
     donor: createDonorSchema.optional(),
   })
   .refine(
-    (data) => !!data.donor_id || !!data.donor,
+    (data) => {
+      if (data.is_anonymous) {
+        // If anonymous, donor_id and donor are both optional
+        return true;
+      }
+      // If not anonymous, require at least one of donor_id or donor
+      return !!data.donor_id || !!data.donor;
+    },
     {
-      message: "Either donor_id or donor must be provided.",
+      message: "If not anonymous, either donor_id or donor must be provided.",
       path: ["donor_id", "donor"],
     }
   );

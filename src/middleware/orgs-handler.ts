@@ -1,13 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { OrgsService } from "../modules/orgs/orgs.service";
-import { pool } from "../config/database";
 
 export const orgsHandler = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
-
   try {
     const orgId = req.headers["x-orgs-id"] as string;
     if (!orgId) {
@@ -26,8 +24,7 @@ export const orgsHandler = async (
       });
     }
 
-    (req as any).org = orgInfo;
-    // Setting search path to that schema
+    req.org = orgInfo;
 
     next();
   } catch (error) {

@@ -19,10 +19,12 @@ export function errorHandler(
   
   // Handle Zod validation errors
   if (err instanceof ZodError) {
+    // Return the exact message of the first error for clarity
+    const firstIssue = err.issues[0];
     return res.status(400).json({
       success: false,
       errors: err.issues,
-      message: err.issues.map(issue => issue.message).flat().join(', ')
+      message: firstIssue?.message || 'Validation error'
     });
   }
   

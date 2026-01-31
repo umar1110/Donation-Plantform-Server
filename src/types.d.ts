@@ -5,6 +5,7 @@ declare global {
   namespace Express {
     interface Request {
       user?: IUser;
+      // TODO: replace with exant type
       org?: {
         id: string;
         name: string;
