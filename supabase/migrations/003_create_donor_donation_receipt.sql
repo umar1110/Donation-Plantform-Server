@@ -1,6 +1,7 @@
 -- Donor and donation table 
 CREATE TABLE IF NOT EXISTS donors (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    org_id UUID NOT NULL REFERENCES orgs(id) ON DELETE CASCADE,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     auth_user_id UUID  NULL,
@@ -13,6 +14,7 @@ CREATE TABLE IF NOT EXISTS donors (
 
 CREATE TABLE IF NOT EXISTS donations (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    org_id UUID NOT NULL REFERENCES orgs(id) ON DELETE CASCADE,
     donor_id UUID NOT NULL REFERENCES donors(id) ON DELETE CASCADE,
     amount NUMERIC(10, 2) NOT NULL CHECK (amount > 0),
     is_amount_split BOOLEAN DEFAULT FALSE,
@@ -50,7 +52,7 @@ CREATE TABLE IF NOT EXISTS donations (
 -- ============================================
 CREATE TABLE IF NOT EXISTS receipts (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    
+    org_id UUID NOT NULL REFERENCES orgs(id) ON DELETE CASCADE,
     -- Link to donation
     donation_id UUID NOT NULL REFERENCES donations(id) ON DELETE RESTRICT,
     

@@ -7,7 +7,7 @@ import { IUser } from "../modules/users/user_types";
 export async function requireAuth(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
     const authHeader = req.headers.authorization;
@@ -24,14 +24,8 @@ export async function requireAuth(
       throw new ApiError(401, "Invalid or expired access token");
     }
 
-    // Get schema name from user metadata
-    const schemaName = (data.user.user_metadata as any)?.schemaName;
-    if (!schemaName) {
-      throw new ApiError(401, "User does not belong to any organization");
-    }
-
     // Fetch user profile from org schema
-    const user = await selectUserByAuthId(schemaName, data.user.id);
+    const user = await selectUserByAuthId(data.user.id);
 
     if (!user) {
       throw new ApiError(404, "User profile not found in organization");
@@ -39,9 +33,6 @@ export async function requireAuth(
 
     // Attach user and schema info to request object
     req.user = user as IUser;
-    req.schemaName = schemaName;
-    req.orgsId = data.user.user_metadata.orgsId;
-
     next();
   } catch (err) {
     next(err);
@@ -51,7 +42,7 @@ export async function requireAuth(
 export async function requireOrgAdmin(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
     if (!req.user) {

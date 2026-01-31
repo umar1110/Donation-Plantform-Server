@@ -12,7 +12,7 @@ export class OrgsService {
     this.orgsRepository = new OrgsRepository();
   }
 
-  async getOrgsInfo(orgsId: string) {
+  async getOrgInfo(orgsId: string) {
     return this.orgsRepository.selectOrgsById(orgsId);
   }
 
@@ -35,14 +35,13 @@ export class OrgsService {
       user_password,
     } = orgsData;
 
-    const schemaName = `org_${subdomain}`;
     // Derive receipt_prefix from state_province if not provided
     const final_receipt_prefix =
       receipt_prefix || (state_province ? state_province.toUpperCase() : "ORG");
     const client = await this.orgsRepository.getClient();
 
     let orgsId: string;
-
+    let authUserId: string | null = null;
     try {
       await client.query("BEGIN");
 
@@ -50,7 +49,6 @@ export class OrgsService {
       orgsId = await this.orgsRepository.insertOrgs(client, {
         name,
         subdomain,
-        schemaName,
         description,
         website,
         ABN,
@@ -62,14 +60,7 @@ export class OrgsService {
         receipt_prefix: final_receipt_prefix,
       });
 
-      // 2. Create schema
-      await this.orgsRepository.insertSchema(client, schemaName);
-
-      // 3. Run migrations using same client
-      const migrationManager = new SchemaMigrationManager(client);
-      await migrationManager.applyPendingMigrations(schemaName);
-
-      // 4. Create auth user
+      // 2. Create auth user
       // TODO: email_confirm should be false and send confirmation email
       const { data, error } = await supabaseAdmin.auth.admin.createUser({
         email: user_email,
@@ -77,10 +68,9 @@ export class OrgsService {
         email_confirm: true,
         user_metadata: {
           orgsId: orgsId,
-          schemaName: schemaName,
         },
       });
-
+      authUserId = data?.user?.id || "";
       if (error || !data.user) {
         console.error("Error creating auth user:", error);
         throw new ApiError(
@@ -90,27 +80,32 @@ export class OrgsService {
         );
       }
 
-      // 5. Insert user profile
-      await this.orgsRepository.insertUserProfile(
+      // 3. Insert user profile
+      const userProfile = await this.orgsRepository.insertUserProfile(
         client,
-        schemaName,
+        orgsId,
         data.user.id,
         first_name,
         last_name,
         user_email,
       );
 
-      // 6. Activate orgs
+
+      // 4. Activate orgs
       await this.orgsRepository.updateOrgsStatus(
         client,
         orgsId,
-        data.user.id,
+        userProfile.id,
         user_email,
       );
 
       await client.query("COMMIT");
     } catch (err) {
       await client.query("ROLLBACK");
+      // Delete auth user if created
+      if (authUserId) {
+        await supabaseAdmin.auth.admin.deleteUser(authUserId);
+      }
       throw err;
     } finally {
       client.release();
@@ -118,7 +113,6 @@ export class OrgsService {
 
     return {
       orgsId,
-      schemaName,
     };
   }
 }

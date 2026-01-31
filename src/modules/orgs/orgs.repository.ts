@@ -1,5 +1,6 @@
 import { PoolClient } from "pg";
 import { pool } from "../../config/database";
+import { IUserProfile } from "../users/user_types";
 
 export class OrgsRepository {
   // Get a database client for transaction management
@@ -13,7 +14,6 @@ export class OrgsRepository {
     data: {
       name: string;
       subdomain: string;
-      schemaName: string;
       description: string;
       website?: string | null;
       ABN?: string | null;
@@ -23,16 +23,15 @@ export class OrgsRepository {
       city: string;
       address: string;
       receipt_prefix: string;
-    }
+    },
   ): Promise<string> {
     const result = await client.query(
-      `INSERT INTO public.orgs (name, subdomain, schema_name, description, website, abn, type, country, state_province, city, address, receipt_prefix)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+      `INSERT INTO public.orgs (name, subdomain, description, website, abn, type, country, state_province, city, address, receipt_prefix)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
        RETURNING id`,
       [
         data.name,
         data.subdomain,
-        data.schemaName,
         data.description,
         data.website,
         data.ABN,
@@ -42,31 +41,30 @@ export class OrgsRepository {
         data.city,
         data.address,
         data.receipt_prefix,
-      ]
+      ],
     );
     return result.rows[0].id;
-  }
-
-  // Create schema for the organization
-  async insertSchema(client: PoolClient, schemaName: string): Promise<void> {
-    await client.query(`CREATE SCHEMA IF NOT EXISTS ${schemaName}`);
   }
 
   // Insert user profile into organization schema
   async insertUserProfile(
     client: PoolClient,
-    schemaName: string,
+    organizationId: string,
     authUserId: string,
     firstName: string,
     lastName: string,
-    email: string
-  ): Promise<void> {
-    await client.query(
-      `INSERT INTO ${schemaName}.user_profiles
-       (auth_user_id, first_name, last_name, email, is_organization_admin)
-       VALUES ($1, $2, $3, $4, true)`,
-      [authUserId, firstName, lastName, email]
+    email: string,
+  ): Promise<IUserProfile> {
+    const result = await client.query(
+      `INSERT INTO user_profiles
+       (auth_user_id, first_name, last_name, email ,org_id, is_organization_admin)
+       VALUES ($1, $2, $3, $4, $5, true)
+       RETURNING *`,
+      [authUserId, firstName, lastName, email, organizationId],
     );
+
+    console.log("Inserted user profile result:", result);
+    return result.rows[0];
   }
 
   // Update organization with owner info and activate
@@ -74,7 +72,7 @@ export class OrgsRepository {
     client: PoolClient,
     orgsId: string,
     ownerId: string,
-    ownerEmail: string
+    ownerEmail: string,
   ): Promise<void> {
     await client.query(
       `UPDATE public.orgs
@@ -82,16 +80,15 @@ export class OrgsRepository {
            owner_email = $2,
            status = 'active'
        WHERE id = $3`,
-      [ownerId, ownerEmail, orgsId]
+      [ownerId, ownerEmail, orgsId],
     );
   }
 
   // Select organization by ID
   async selectOrgsById(orgsId: string) {
-    const result = await pool.query(
-      "SELECT * FROM public.orgs WHERE id = $1",
-      [orgsId]
-    );
+    const result = await pool.query("SELECT * FROM public.orgs WHERE id = $1", [
+      orgsId,
+    ]);
     return result.rows[0];
   }
 }

@@ -5,10 +5,7 @@ declare global {
   namespace Express {
     interface Request {
       user?: IUser;
-      schemaName?: string;
-      orgsId?: string;
-      db?: PoolClient;
-      orgs?: {
+      org?: {
         id: string;
         name: string;
         subdomain: string;

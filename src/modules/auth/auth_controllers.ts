@@ -22,18 +22,9 @@ export const signInUser = async (req: Request, res: Response) => {
       errors: [error?.message],
     });
   }
-
-  const schemaName = (data.user.user_metadata as any)?.schemaName;
-
-  if (!schemaName) {
-    return res.status(401).json({
-      success: false,
-      message: "User does not belong to any organization",
-    });
-  }
-
-  // Get user profile from organization schema
-  const userProfile = await selectUserByAuthId(schemaName, data.user.id);
+  
+  // Get user profile
+  const userProfile = await selectUserByAuthId(data.user.id);
 
   if (!userProfile) {
     return res.status(404).json({
