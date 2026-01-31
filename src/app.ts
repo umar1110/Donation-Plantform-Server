@@ -22,6 +22,7 @@ app.use(httpLogger);
 import orgsRoutes from "./modules/orgs/orgs.routes";
 import authRoutes from "./modules/auth/auth_routes";
 import usersRoutes from "./modules/users/users_routes";
+import receiptsRoutes from "./modules/receipts/receipts.routes";
 
 app.get("/health", (req: express.Request, res: express.Response) => {
   res.json({ status: "OK" });
@@ -29,6 +30,7 @@ app.get("/health", (req: express.Request, res: express.Response) => {
 app.use("/api/v1", orgsRoutes);
 app.use("/api/v1", authRoutes);
 app.use("/api/v1", usersRoutes);
+app.use("/api/v1", receiptsRoutes);
 
 // Error handling (must be after routes)
 app.use(notFoundHandler);

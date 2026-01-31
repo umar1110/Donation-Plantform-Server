@@ -32,6 +32,11 @@ const envSchema = z.object({
   
   // Logging
   LOG_LEVEL: z.enum(['error', 'warn', 'info', 'debug']).default('info'),
+
+  // Gmail SMTP for receipt emails (optional – if not set, receipt API logs instead of sending)
+  SMPT_MAIL: z.string().optional(),
+  SMPT_PASSWORD: z.string().optional(),
+  SMTP_FROM: z.string().optional(),
 });
 
 // Parse and validate environment variables
@@ -74,6 +79,13 @@ export const config = {
   isDevelopment: env.NODE_ENV === 'development',
   isProduction: env.NODE_ENV === 'production',
   isTest: env.NODE_ENV === 'test',
+
+  // Gmail SMTP for receipt emails
+  smtp: {
+    user: env.SMPT_MAIL,
+    pass: env.SMPT_PASSWORD,
+    from: env.SMTP_FROM ?? (env.SMPT_MAIL ? `PKC Friends <${env.SMPT_MAIL}>` : 'PKC Friends <receipts@example.com>'),
+  },
 } as const;
 
 // Validate required environment variables

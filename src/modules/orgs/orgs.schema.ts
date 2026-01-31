@@ -4,7 +4,7 @@ const createOrgsSchema = z.object({
     // Orgs fields
     name: z.string("Name is required").min(2, "Orgs name must be at least 2 characters long"),
     subdomain: z.string("Subdomain is required").min(2, "Subdomain must be at least 2 characters long"),
-    description: z.string("Description is required").min(10, "Description must be at least 10 characters long"),
+    description: z.string("Description is required"),
     website: z.string().url("Invalid website URL").optional().nullable(),
     ABN: z.string().optional().nullable(),
     type: z.string().optional().nullable(),
