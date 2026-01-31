@@ -3,6 +3,7 @@ import { config } from "../../config/env";
 import logger from "../../utils/logger";
 
 function getTransport() {
+  console.log("==========================>",config.smtp);
   const { user, pass } = config.smtp;
   if (!user || !pass) return null;
   return nodemailer.createTransport({
@@ -22,6 +23,7 @@ export async function sendReceiptEmail(
   html: string
 ): Promise<{ ok: boolean; error?: string }> {
   const transport = getTransport();
+  console.log("==========================>",transport);
   if (!transport) {
     logger.warn(
       "Receipt email not sent: set SMPT_MAIL and SMPT_PASSWORD in .env"

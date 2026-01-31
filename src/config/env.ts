@@ -34,8 +34,8 @@ const envSchema = z.object({
   LOG_LEVEL: z.enum(['error', 'warn', 'info', 'debug']).default('info'),
 
   // Gmail SMTP for receipt emails (optional – if not set, receipt API logs instead of sending)
-  SMPT_MAIL: z.string().optional(),
-  SMPT_PASSWORD: z.string().optional(),
+  SMTP_MAIL: z.string().optional(),
+  SMTP_PASSWORD: z.string().optional(),
   SMTP_FROM: z.string().optional(),
 });
 
@@ -82,8 +82,8 @@ export const config = {
 
   // Gmail SMTP for receipt emails
   smtp: {
-    user: env.SMPT_MAIL,
-    pass: env.SMPT_PASSWORD,
+    user: env.SMTP_MAIL,
+    pass: env.SMTP_PASSWORD,
     from: env.SMTP_FROM ?? (env.SMPT_MAIL ? `PKC Friends <${env.SMPT_MAIL}>` : 'PKC Friends <receipts@example.com>'),
   },
 } as const;
