@@ -37,7 +37,8 @@ export class OrgsService {
 
     const schemaName = `org_${subdomain}`;
     // Derive receipt_prefix from state_province if not provided
-    const final_receipt_prefix = receipt_prefix || (state_province ? state_province.toUpperCase() : 'ORG');
+    const final_receipt_prefix =
+      receipt_prefix || (state_province ? state_province.toUpperCase() : "ORG");
     const client = await this.orgsRepository.getClient();
 
     let orgsId: string;
@@ -82,7 +83,11 @@ export class OrgsService {
 
       if (error || !data.user) {
         console.error("Error creating auth user:", error);
-        throw new ApiError(500, "Failed to create auth user", [error?.message]);
+        throw new ApiError(
+          500,
+          error?.message || "Failed to create auth user",
+          [error?.message],
+        );
       }
 
       // 5. Insert user profile

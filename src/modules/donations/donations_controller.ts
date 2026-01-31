@@ -1,28 +1,34 @@
-
-
 import { Request, Response } from "express";
 import { createDonationSchema } from "./donations_schema";
 import { DonationsService } from "./donations_services";
+import { createDonorSchema } from "../donors/donors_schema";
 
 const donationsService = new DonationsService();
 
-export const addNewDonationController = async (
-  req: Request,
-  res: Response,
-) => {
-  try {
-    const validated = createDonationSchema.parse(req.body);
-    const donation = await donationsService.createDonation(validated);
+export const addNewDonationController = async (req: Request, res: Response) => {
+  const validated = createDonationSchema.parse(req.body);
+
+  if (validated.donor_id) {
+    const donation = await donationsService.createDonation(
+      req.app.locals.dbClient,
+      validated,
+    );
     return res.status(201).json({
       success: true,
       message: "Donation created successfully",
       data: donation,
     });
-  } catch (error: any) {
-    return res.status(400).json({
-      success: false,
-      message: error.message || "Failed to create donation",
-      errors: error.errors || [],
+  } else {
+    const validateDonor = createDonorSchema.parse(validated.donor);
+    const result = await donationsService.createDonorAndDonation(
+      req.app.locals.dbClient,
+      validateDonor,
+      validated,
+    );
+    return res.status(201).json({
+      success: true,
+      message: "Donor and Donation created successfully",
+      data: result,
     });
   }
 };

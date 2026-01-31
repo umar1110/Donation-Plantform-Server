@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS donors (
     auth_user_id UUID  NULL,
     email VARCHAR(255) NOT NULL,
     phone VARCHAR(20),
+    address TEXT,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -64,7 +65,7 @@ CREATE TABLE IF NOT EXISTS receipts (
     currency VARCHAR(10) NOT NULL DEFAULT 'USD',
     is_amount_split BOOLEAN NOT NULL,
     tax_deductible_amount NUMERIC(12, 2) NOT NULL,
-    tax_non_deductible_amount NUMERIC(12, 2) NOT NULL,
+    tax_non_deductible_amount NUMERIC(12, 2) NOT NULL, -- Meal or service 
     donation_date TIMESTAMPTZ NOT NULL,
     
     -- Organization snapshot (in case org details change later)
