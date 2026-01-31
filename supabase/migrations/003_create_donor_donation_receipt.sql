@@ -1,21 +1,33 @@
 -- Donor and donation table 
-CREATE TABLE IF NOT EXISTS donors (
+CREATE TABLE IF NOT EXISTS donor_profiles (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    org_id UUID NOT NULL REFERENCES orgs(id) ON DELETE CASCADE,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     auth_user_id UUID  NULL,
     email VARCHAR(255) NOT NULL,
     phone VARCHAR(20),
     address TEXT,
+    total_donations NUMERIC(12, 2) DEFAULT 0 CHECK (total_donations >= 0),
+    donation_count INT DEFAULT 0 CHECK (donation_count >= 0),
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- table orgs_donor to link donor donor profiles to orgs
+CREATE TABLE IF NOT EXISTS orgs_donors (
+    org_id UUID NOT NULL REFERENCES orgs(id) ON DELETE CASCADE,
+    donor_id UUID NOT NULL REFERENCES donor_profiles(id) ON DELETE CASCADE,
+    total_donations NUMERIC(12, 2) DEFAULT 0 CHECK (total_donations >= 0),
+    donation_count INT DEFAULT 0 CHECK (donation_count >= 0),
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    PRIMARY KEY (org_id, donor_id)
 );
 
 CREATE TABLE IF NOT EXISTS donations (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     org_id UUID NOT NULL REFERENCES orgs(id) ON DELETE CASCADE,
-    donor_id UUID NULL REFERENCES donors(id) ON DELETE CASCADE,
+    donor_id UUID NULL REFERENCES donor_profiles(id) ON DELETE CASCADE,
     amount NUMERIC(10, 2) NOT NULL CHECK (amount > 0),
     is_amount_split BOOLEAN DEFAULT FALSE,
     tax_deductible_amount NUMERIC(10, 2) DEFAULT 0 CHECK (tax_deductible_amount >= 0),
@@ -113,8 +125,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Apply trigger to all tables
-CREATE TRIGGER trg_donors_updated_at
-BEFORE UPDATE ON donors
+CREATE TRIGGER trg_donor_profiles_updated_at
+BEFORE UPDATE ON donor_profiles
 FOR EACH ROW
 EXECUTE FUNCTION set_updated_at();
 
@@ -130,8 +142,8 @@ EXECUTE FUNCTION set_updated_at();
 
 -- Indexes for performance
 
-CREATE INDEX IF NOT EXISTS idx_donors_email
-  ON donors(email);        
+CREATE INDEX IF NOT EXISTS idx_donor_profiles_email
+  ON donor_profiles(email);        
 CREATE INDEX IF NOT EXISTS idx_donations_donor_id
   ON donations(donor_id);        
 CREATE INDEX IF NOT EXISTS idx_donations_status
@@ -142,5 +154,5 @@ CREATE INDEX IF NOT EXISTS idx_receipts_receipt_number
   ON receipts(receipt_number);  
 CREATE INDEX IF NOT EXISTS idx_receipts_status
     ON receipts(status);
-CReatE INDEX IF NOT EXISTS idx_auth_user_id_in_donors
-    ON donors(auth_user_id);
+CREATE INDEX IF NOT EXISTS idx_auth_user_id_in_donor_profiles
+    ON donor_profiles(auth_user_id);

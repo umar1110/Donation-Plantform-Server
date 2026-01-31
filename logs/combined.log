@@ -913,3 +913,83 @@
 [2026-01-31 18:36:20] [INFO]: Database connection successful: Sat Jan 31 2026 18:36:20 GMT+0500 (Pakistan Standard Time)
 [2026-01-31 19:13:36] [INFO]: New database connection established
 [2026-01-31 19:13:36] [INFO]: Database connection successful: Sat Jan 31 2026 19:13:36 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:20:25] [INFO]: New database connection established
+[2026-01-31 19:20:25] [INFO]: Database connection successful: Sat Jan 31 2026 19:20:25 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:20:40] [INFO]: New database connection established
+[2026-01-31 19:20:40] [INFO]: Database connection successful: Sat Jan 31 2026 19:20:40 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:22:34] [INFO]: New database connection established
+[2026-01-31 19:22:34] [INFO]: Database connection successful: Sat Jan 31 2026 19:22:34 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:24:29] [INFO]: New database connection established
+[2026-01-31 19:24:29] [INFO]: Database connection successful: Sat Jan 31 2026 19:24:29 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:24:43] [ERROR]: Unexpected database error: Connection terminated unexpectedly {"client":{"_events":{},"_eventsCount":1,"connectionParameters":{"user":"postgres","database":"postgres","port":54322,"host":"127.0.0.1","binary":false,"ssl":false,"client_encoding":"","isDomainSocket":false,"statement_timeout":false,"lock_timeout":false,"idle_in_transaction_session_timeout":false,"query_timeout":false,"connect_timeout":5},"user":"postgres","database":"postgres","port":54322,"host":"127.0.0.1","_types":{"_types":{"arrayParser":{},"builtins":{"BOOL":16,"BYTEA":17,"CHAR":18,"INT8":20,"INT2":21,"INT4":23,"REGPROC":24,"TEXT":25,"OID":26,"TID":27,"XID":28,"CID":29,"JSON":114,"XML":142,"PG_NODE_TREE":194,"SMGR":210,"PATH":602,"POLYGON":604,"CIDR":650,"FLOAT4":700,"FLOAT8":701,"ABSTIME":702,"RELTIME":703,"TINTERVAL":704,"CIRCLE":718,"MACADDR8":774,"MONEY":790,"MACADDR":829,"INET":869,"ACLITEM":1033,"BPCHAR":1042,"VARCHAR":1043,"DATE":1082,"TIME":1083,"TIMESTAMP":1114,"TIMESTAMPTZ":1184,"INTERVAL":1186,"TIMETZ":1266,"BIT":1560,"VARBIT":1562,"NUMERIC":1700,"REFCURSOR":1790,"REGPROCEDURE":2202,"REGOPER":2203,"REGOPERATOR":2204,"REGCLASS":2205,"REGTYPE":2206,"UUID":2950,"TXID_SNAPSHOT":2970,"PG_LSN":3220,"PG_NDISTINCT":3361,"PG_DEPENDENCIES":3402,"TSVECTOR":3614,"TSQUERY":3615,"GTSVECTOR":3642,"REGCONFIG":3734,"REGDICTIONARY":3769,"JSONB":3802,"REGNAMESPACE":4089,"REGROLE":4096}},"text":{},"binary":{}},"_ending":true,"_ended":true,"_connecting":false,"_connected":true,"_connectionError":false,"_queryable":false,"_activeQuery":null,"enableChannelBinding":false,"connection":{"_events":{},"_eventsCount":23,"stream":{"connecting":false,"_hadError":false,"_parent":null,"_host":null,"_closeAfterHandlingError":false,"_events":{"end":[null,null]},"_readableState":{"highWaterMark":65536,"buffer":[],"bufferIndex":0,"length":0,"pipes":[],"awaitDrainWriters":null},"_writableState":{"highWaterMark":65536,"length":0,"corked":0,"writelen":0,"bufferedIndex":0,"pendingcb":0},"allowHalfOpen":false,"_eventsCount":4,"_sockname":null,"_pendingData":null,"_pendingEncoding":"","server":null,"_server":null},"_keepAlive":false,"_keepAliveInitialDelayMillis":0,"lastBuffer":false,"parsedStatements":{},"ssl":false,"_ending":false,"_emitMessage":false,"_connecting":true},"_queryQueue":[],"binary":false,"processID":1667,"secretKey":-123098493,"ssl":false,"_connectionTimeoutMillis":5000,"_connectionCallback":null,"connectionTimeoutHandle":{"_idleTimeout":-1,"_idlePrev":null,"_idleNext":null,"_idleStart":372,"_onTimeout":null,"_repeat":null,"_destroyed":true},"saslSession":null,"readyForQuery":true,"hasExecuted":true,"_poolUseCount":1},"stack":"Error: Connection terminated unexpectedly\n    at Connection.<anonymous> (/Users/mac/My Projects/DonationPlatform/server/node_modules/pg/lib/client.js:177:73)\n    at Object.onceWrapper (node:events:632:28)\n    at Connection.emit (node:events:518:28)\n    at Socket.<anonymous> (/Users/mac/My Projects/DonationPlatform/server/node_modules/pg/lib/connection.js:62:12)\n    at Socket.emit (node:events:518:28)\n    at TCP.<anonymous> (node:net:346:12)"}
+[2026-01-31 19:25:00] [INFO]: New database connection established
+[2026-01-31 19:25:00] [INFO]: Database connection successful: Sat Jan 31 2026 19:25:00 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:26:34] [INFO]: New database connection established
+[2026-01-31 19:26:34] [INFO]: Database connection successful: Sat Jan 31 2026 19:26:34 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:27:49] [INFO]: New database connection established
+[2026-01-31 19:27:49] [INFO]: Database connection successful: Sat Jan 31 2026 19:27:49 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:29:46] [INFO]: New database connection established
+[2026-01-31 19:29:46] [INFO]: Database connection successful: Sat Jan 31 2026 19:29:46 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:30:49] [INFO]: New database connection established
+[2026-01-31 19:30:49] [INFO]: Database connection successful: Sat Jan 31 2026 19:30:49 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:33:46] [INFO]: New database connection established
+[2026-01-31 19:33:46] [INFO]: Database connection successful: Sat Jan 31 2026 19:33:46 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:36:58] [INFO]: New database connection established
+[2026-01-31 19:36:58] [INFO]: Database connection successful: Sat Jan 31 2026 19:36:58 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:38:37] [INFO]: New database connection established
+[2026-01-31 19:38:37] [INFO]: Database connection successful: Sat Jan 31 2026 19:38:37 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:38:52] [INFO]: New database connection established
+[2026-01-31 19:38:52] [INFO]: Database connection successful: Sat Jan 31 2026 19:38:52 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:39:05] [INFO]: New database connection established
+[2026-01-31 19:39:05] [INFO]: Database connection successful: Sat Jan 31 2026 19:39:05 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:39:15] [INFO]: New database connection established
+[2026-01-31 19:39:15] [INFO]: Database connection successful: Sat Jan 31 2026 19:39:15 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:40:22] [INFO]: New database connection established
+[2026-01-31 19:40:22] [INFO]: Database connection successful: Sat Jan 31 2026 19:40:22 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:40:37] [INFO]: New database connection established
+[2026-01-31 19:40:37] [INFO]: Database connection successful: Sat Jan 31 2026 19:40:37 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:41:21] [INFO]: New database connection established
+[2026-01-31 19:41:21] [INFO]: Database connection successful: Sat Jan 31 2026 19:41:21 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:41:57] [INFO]: New database connection established
+[2026-01-31 19:41:57] [INFO]: Database connection successful: Sat Jan 31 2026 19:41:57 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:42:47] [INFO]: New database connection established
+[2026-01-31 19:42:47] [INFO]: Database connection successful: Sat Jan 31 2026 19:42:47 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:44:30] [INFO]: New database connection established
+[2026-01-31 19:44:30] [INFO]: Database connection successful: Sat Jan 31 2026 19:44:30 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:45:08] [INFO]: New database connection established
+[2026-01-31 19:45:08] [INFO]: Database connection successful: Sat Jan 31 2026 19:45:08 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:45:28] [INFO]: New database connection established
+[2026-01-31 19:45:28] [INFO]: Database connection successful: Sat Jan 31 2026 19:45:28 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:45:33] [INFO]: New database connection established
+[2026-01-31 19:45:33] [INFO]: Database connection successful: Sat Jan 31 2026 19:45:33 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:45:43] [INFO]: New database connection established
+[2026-01-31 19:45:43] [INFO]: Database connection successful: Sat Jan 31 2026 19:45:43 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:46:11] [INFO]: New database connection established
+[2026-01-31 19:46:11] [INFO]: Database connection successful: Sat Jan 31 2026 19:46:11 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:47:38] [INFO]: New database connection established
+[2026-01-31 19:47:38] [INFO]: Database connection successful: Sat Jan 31 2026 19:47:38 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:50:17] [INFO]: New database connection established
+[2026-01-31 19:50:17] [INFO]: Database connection successful: Sat Jan 31 2026 19:50:17 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:50:33] [INFO]: New database connection established
+[2026-01-31 19:50:33] [INFO]: Database connection successful: Sat Jan 31 2026 19:50:33 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:51:32] [INFO]: New database connection established
+[2026-01-31 19:51:32] [INFO]: Database connection successful: Sat Jan 31 2026 19:51:32 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:52:40] [INFO]: New database connection established
+[2026-01-31 19:52:40] [INFO]: Database connection successful: Sat Jan 31 2026 19:52:40 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:53:35] [INFO]: New database connection established
+[2026-01-31 19:53:35] [INFO]: Database connection successful: Sat Jan 31 2026 19:53:35 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:53:48] [INFO]: New database connection established
+[2026-01-31 19:53:48] [INFO]: Database connection successful: Sat Jan 31 2026 19:53:48 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:58:10] [INFO]: New database connection established
+[2026-01-31 19:58:10] [INFO]: Database connection successful: Sat Jan 31 2026 19:58:10 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 19:58:30] [ERROR]: Unexpected database error: Connection terminated unexpectedly {"client":{"_events":{},"_eventsCount":1,"connectionParameters":{"user":"postgres","database":"postgres","port":54322,"host":"127.0.0.1","binary":false,"ssl":false,"client_encoding":"","isDomainSocket":false,"statement_timeout":false,"lock_timeout":false,"idle_in_transaction_session_timeout":false,"query_timeout":false,"connect_timeout":5},"user":"postgres","database":"postgres","port":54322,"host":"127.0.0.1","_types":{"_types":{"arrayParser":{},"builtins":{"BOOL":16,"BYTEA":17,"CHAR":18,"INT8":20,"INT2":21,"INT4":23,"REGPROC":24,"TEXT":25,"OID":26,"TID":27,"XID":28,"CID":29,"JSON":114,"XML":142,"PG_NODE_TREE":194,"SMGR":210,"PATH":602,"POLYGON":604,"CIDR":650,"FLOAT4":700,"FLOAT8":701,"ABSTIME":702,"RELTIME":703,"TINTERVAL":704,"CIRCLE":718,"MACADDR8":774,"MONEY":790,"MACADDR":829,"INET":869,"ACLITEM":1033,"BPCHAR":1042,"VARCHAR":1043,"DATE":1082,"TIME":1083,"TIMESTAMP":1114,"TIMESTAMPTZ":1184,"INTERVAL":1186,"TIMETZ":1266,"BIT":1560,"VARBIT":1562,"NUMERIC":1700,"REFCURSOR":1790,"REGPROCEDURE":2202,"REGOPER":2203,"REGOPERATOR":2204,"REGCLASS":2205,"REGTYPE":2206,"UUID":2950,"TXID_SNAPSHOT":2970,"PG_LSN":3220,"PG_NDISTINCT":3361,"PG_DEPENDENCIES":3402,"TSVECTOR":3614,"TSQUERY":3615,"GTSVECTOR":3642,"REGCONFIG":3734,"REGDICTIONARY":3769,"JSONB":3802,"REGNAMESPACE":4089,"REGROLE":4096}},"text":{},"binary":{}},"_ending":true,"_ended":true,"_connecting":false,"_connected":true,"_connectionError":false,"_queryable":false,"_activeQuery":null,"enableChannelBinding":false,"connection":{"_events":{},"_eventsCount":23,"stream":{"connecting":false,"_hadError":false,"_parent":null,"_host":null,"_closeAfterHandlingError":false,"_events":{"end":[null,null]},"_readableState":{"highWaterMark":65536,"buffer":[],"bufferIndex":0,"length":0,"pipes":[],"awaitDrainWriters":null},"_writableState":{"highWaterMark":65536,"length":0,"corked":0,"writelen":0,"bufferedIndex":0,"pendingcb":0},"allowHalfOpen":false,"_eventsCount":4,"_sockname":null,"_pendingData":null,"_pendingEncoding":"","server":null,"_server":null},"_keepAlive":false,"_keepAliveInitialDelayMillis":0,"lastBuffer":false,"parsedStatements":{},"ssl":false,"_ending":true,"_emitMessage":false,"_connecting":true},"_queryQueue":[],"binary":false,"processID":1819,"secretKey":1914095983,"ssl":false,"_connectionTimeoutMillis":5000,"_connectionCallback":null,"connectionTimeoutHandle":{"_idleTimeout":-1,"_idlePrev":null,"_idleNext":null,"_idleStart":421,"_onTimeout":null,"_repeat":null,"_destroyed":true},"saslSession":null,"readyForQuery":true,"hasExecuted":true,"_poolUseCount":2},"stack":"Error: Connection terminated unexpectedly\n    at Connection.<anonymous> (/Users/mac/My Projects/DonationPlatform/server/node_modules/pg/lib/client.js:177:73)\n    at Object.onceWrapper (node:events:632:28)\n    at Connection.emit (node:events:518:28)\n    at Socket.<anonymous> (/Users/mac/My Projects/DonationPlatform/server/node_modules/pg/lib/connection.js:62:12)\n    at Socket.emit (node:events:518:28)\n    at TCP.<anonymous> (node:net:346:12)"}
+[2026-01-31 20:04:21] [INFO]: New database connection established
+[2026-01-31 20:04:21] [INFO]: Database connection successful: Sat Jan 31 2026 20:04:21 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 20:05:12] [INFO]: New database connection established
+[2026-01-31 20:05:23] [ERROR]: Error occurred: relation "donors" does not exist {"stack":"error: relation \"donors\" does not exist\n    at /Users/mac/My Projects/DonationPlatform/server/node_modules/pg-pool/index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at insertDonorProfile (/Users/mac/My Projects/DonationPlatform/server/src/modules/donors/donors_repository.ts:11:18)\n    at DonationsService.createDonorAndDonation (/Users/mac/My Projects/DonationPlatform/server/src/modules/donations/donations_services.ts:91:19)\n    at addNewDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/donations/donations_controller.ts:68:20)","path":"/api/v1/donations","method":"POST"}
+[2026-01-31 20:06:11] [INFO]: New database connection established
+[2026-01-31 20:06:11] [INFO]: Database connection successful: Sat Jan 31 2026 20:06:11 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 20:06:38] [INFO]: New database connection established
+[2026-01-31 20:06:38] [INFO]: Database connection successful: Sat Jan 31 2026 20:06:38 GMT+0500 (Pakistan Standard Time)
+[2026-01-31 20:07:39] [INFO]: New database connection established
+[2026-01-31 20:07:39] [INFO]: Database connection successful: Sat Jan 31 2026 20:07:39 GMT+0500 (Pakistan Standard Time)
