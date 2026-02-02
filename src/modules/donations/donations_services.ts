@@ -1,17 +1,19 @@
+import { PoolClient } from "pg";
 import { getClient } from "../../config/database";
 import {
+  findDonorByEmailAndOrg,
+  getDonorById,
   insertDonorProfile,
   linkDonorToOrg,
-  getDonorById,
-  findDonorByEmailAndOrg,
   updateDonorTotals,
   updateOrgsDonorsTotals,
 } from "../donors/donors_repository";
+import type { IDonorCreate } from "../donors/donors_types";
+import { OrgsRepository } from "../orgs/orgs.repository";
+import { getNextReceiptNumber, insertReceipt } from "../receipts/receipts_repository";
+import { sendDonationReceiptEmail } from "../receipts/email-sender";
 import { insertDonation } from "./donations_repository";
 import type { IDonation, IDonationCreate } from "./donations_types";
-import type { IDonorCreate } from "../donors/donors_types";
-import { getNextReceiptNumber, insertReceipt } from "../receipts/receipts_repository";
-import { OrgsRepository } from "../orgs/orgs.repository";
 
 const orgsRepository = new OrgsRepository();
 
@@ -36,7 +38,7 @@ async function createReceiptForDonation(
   donation: IDonation & { donation_date?: Date },
   orgId: string,
   donor: { first_name: string; last_name: string; email?: string } | null,
-  client: Awaited<ReturnType<typeof getClient>>
+  client: PoolClient
 ): Promise<void> {
   const org = await orgsRepository.selectOrgsByIdWithClient(orgId, client);
   if (!org) throw new Error("Org not found for receipt");
@@ -51,7 +53,7 @@ async function createReceiptForDonation(
   const retentionUntil = new Date(donationDate);
   retentionUntil.setFullYear(retentionUntil.getFullYear() + 7); // ATO: keep 7 years
 
-  await insertReceipt(
+  const receipt = await insertReceipt(
     {
       org_id: orgId,
       donation_id: donation.id,
@@ -72,6 +74,24 @@ async function createReceiptForDonation(
     },
     client
   );
+
+  // Send receipt email to donor (only if email is available)
+  if (donorEmail) {
+    console.log("Scheduling receipt email to: =========> ", donorEmail);
+    // Send email asynchronously without blocking the transaction
+    setImmediate(async () => {
+      try {
+        await sendDonationReceiptEmail({
+          ...receipt,
+          description_of_gift: "Cash / Money",
+        });
+        console.log("Receipt email sent to:", donorEmail);
+      } catch (error) {
+        console.error("Failed to send receipt email:", error);
+        // Don't throw - email failure shouldn't affect donation creation
+      }
+    });
+  }
 }
 
 export class DonationsService {

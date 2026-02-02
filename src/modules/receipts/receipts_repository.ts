@@ -24,7 +24,7 @@ export async function getNextReceiptNumber(
 export async function insertReceipt(
   data: IReceiptCreate,
   client?: PoolClient
-): Promise<{ id: string }> {
+): Promise<IReceiptCreate & { id: string }> {
   const q = queryClient(client);
   const result = await q.query(
     `INSERT INTO receipts (
@@ -54,5 +54,5 @@ export async function insertReceipt(
       data.issued_by_admin_id ?? null,
     ]
   );
-  return { id: result.rows[0].id };
+  return { ...data, id: result.rows[0].id };
 }
