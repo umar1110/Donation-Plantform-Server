@@ -10,6 +10,38 @@ const paymentMethodEnum = z.enum([
   "other",
 ]);
 
+const statusEnum = z.enum(["pending", "completed", "failed", "refunded"]);
+const typeEnum = z.enum(["one-time", "recurring"]);
+
+// Query schema for GET /donations
+const getDonationsQuerySchema = z.object({
+  // Pagination
+  page: z.coerce.number().int().min(1).default(1),
+  limit: z.coerce.number().int().min(1).max(100).default(20),
+  
+  // Search - donor name or email
+  q: z.string().optional(),
+  
+  // Date range filters
+  start_date: z.coerce.date().optional(),
+  end_date: z.coerce.date().optional(),
+  
+  // Category filters
+  type: typeEnum.optional(),
+  payment_method: paymentMethodEnum.optional(),
+  status: statusEnum.optional(),
+  
+  // Boolean filters
+  anonymous_only: z
+    .string()
+    .transform((val) => val === "true")
+    .optional(),
+    
+  // Sorting
+  sort_by: z.enum(["donation_date", "amount", "created_at"]).default("donation_date"),
+  sort_order: z.enum(["asc", "desc"]).default("desc"),
+});
+
 const createDonationSchema = z
   .object({
     amount: z.number("Amount is required").positive("Amount must be positive"),
@@ -63,4 +95,4 @@ const createDonationSchema = z
     },
   );
 
-export { createDonationSchema };
+export { createDonationSchema, getDonationsQuerySchema };
