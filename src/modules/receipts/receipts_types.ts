@@ -17,3 +17,13 @@ export interface IReceiptCreate {
   retention_until: Date;
   issued_by_admin_id?: string | null;
 }
+
+/** Full receipt record from database */
+export interface IReceipt extends IReceiptCreate {
+  id: string;
+  email_sent: boolean;
+  email_sent_at: Date | null;
+  status: "issued" | "void" | "amended";
+  created_at: Date;
+  updated_at: Date;
+}

@@ -1,7 +1,7 @@
 import type { PoolClient } from "pg";
 import { pool } from "../../config/database";
 import { OrgsRepository } from "../orgs/orgs.repository";
-import type { IReceiptCreate } from "./receipts_types";
+import type { IReceipt, IReceiptCreate } from "./receipts_types";
 
 function queryClient(client: PoolClient | undefined) {
   return client ?? pool;
@@ -55,4 +55,104 @@ export async function insertReceipt(
     ]
   );
   return { ...data, id: result.rows[0].id };
+}
+
+/**
+ * Get receipt by donation ID
+ */
+export async function getReceiptByDonationId(
+  donationId: string,
+  orgId: string,
+  client?: PoolClient
+): Promise<IReceipt | null> {
+  const q = queryClient(client);
+  const result = await q.query<IReceipt>(
+    `SELECT 
+      id,
+      org_id,
+      donation_id,
+      receipt_number,
+      donor_name,
+      donor_email,
+      amount,
+      currency,
+      is_amount_split,
+      tax_deductible_amount,
+      tax_non_deductible_amount,
+      donation_date,
+      org_name,
+      org_abn,
+      org_address,
+      email_sent,
+      email_sent_at,
+      status,
+      retention_until,
+      issued_by_admin_id,
+      created_at,
+      updated_at
+    FROM receipts
+    WHERE donation_id = $1 AND org_id = $2
+    LIMIT 1`,
+    [donationId, orgId]
+  );
+  return result.rows[0] || null;
+}
+
+
+/**
+ * Get receipt by its id
+ */
+export async function getReceiptById(
+  receiptId: string,
+  orgId: string,
+  client?: PoolClient
+): Promise<IReceipt | null> {
+  const q = queryClient(client);
+  const result = await q.query<IReceipt>(
+    `SELECT 
+      id,
+      org_id,
+      donation_id,
+      receipt_number,
+      donor_name,
+      donor_email,
+      amount,
+      currency,
+      is_amount_split,
+      tax_deductible_amount,
+      tax_non_deductible_amount,
+      donation_date,
+      org_name,
+      org_abn,
+      org_address,
+      email_sent,
+      email_sent_at,
+      status,
+      retention_until,
+      issued_by_admin_id,
+      created_at,
+      updated_at
+    FROM receipts
+    WHERE id = $1 AND org_id = $2
+    LIMIT 1`,
+    [receiptId, orgId]
+  );
+  return result.rows[0] || null;
+}
+
+
+// Update receipt to mark email as sent
+export async function markReceiptEmailSent(
+  receiptId: string,
+  client?: PoolClient
+): Promise<void> {
+  const q = queryClient(client);
+  await q.query(
+    `UPDATE receipts
+     SET email_sent = true,
+         email_sent_at = NOW(),
+         updated_at = NOW()
+     WHERE id = $1`,
+    [receiptId]
+  );
 }

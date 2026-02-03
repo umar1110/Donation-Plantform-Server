@@ -1274,3 +1274,49 @@
 [2026-02-03 21:39:08] [INFO]: New database connection established
 [2026-02-03 21:40:00] [INFO]: New database connection established
 [2026-02-03 21:40:33] [INFO]: New database connection established
+[2026-02-03 21:44:19] [INFO]: New database connection established
+[2026-02-03 21:44:19] [INFO]: Database connection successful: Tue Feb 03 2026 21:44:19 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 21:44:30] [INFO]: New database connection established
+[2026-02-03 21:44:30] [INFO]: Database connection successful: Tue Feb 03 2026 21:44:30 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 21:45:06] [INFO]: New database connection established
+[2026-02-03 21:45:06] [INFO]: Database connection successful: Tue Feb 03 2026 21:45:06 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 21:49:13] [INFO]: New database connection established
+[2026-02-03 21:51:08] [INFO]: New database connection established
+[2026-02-03 21:51:10] [ERROR]: Error occurred: Receipt not found for this donation {"stack":"Error: Receipt not found for this donation\n    at getReceiptByDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/receipts/receipts_controller.ts:28:11)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/receipts/donation/ba3d5208-161e-4a1a-9eea-4f2894d655b0","method":"GET"}
+[2026-02-03 21:51:11] [ERROR]: Error occurred: Receipt not found for this donation {"stack":"Error: Receipt not found for this donation\n    at getReceiptByDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/receipts/receipts_controller.ts:28:11)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/receipts/donation/ba3d5208-161e-4a1a-9eea-4f2894d655b0","method":"GET"}
+[2026-02-03 21:51:21] [ERROR]: Error occurred: Receipt not found for this donation {"stack":"Error: Receipt not found for this donation\n    at getReceiptByDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/receipts/receipts_controller.ts:28:11)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/receipts/donation/03c39702-4dcd-45e9-9bc7-8f26ffa95830","method":"GET"}
+[2026-02-03 21:51:22] [ERROR]: Error occurred: Receipt not found for this donation {"stack":"Error: Receipt not found for this donation\n    at getReceiptByDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/receipts/receipts_controller.ts:28:11)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/receipts/donation/03c39702-4dcd-45e9-9bc7-8f26ffa95830","method":"GET"}
+[2026-02-03 21:51:49] [ERROR]: Error occurred: Receipt not found for this donation {"stack":"Error: Receipt not found for this donation\n    at getReceiptByDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/receipts/receipts_controller.ts:28:11)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/receipts/donation/03c39702-4dcd-45e9-9bc7-8f26ffa95830","method":"GET"}
+[2026-02-03 21:51:50] [ERROR]: Error occurred: Receipt not found for this donation {"stack":"Error: Receipt not found for this donation\n    at getReceiptByDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/receipts/receipts_controller.ts:28:11)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/receipts/donation/03c39702-4dcd-45e9-9bc7-8f26ffa95830","method":"GET"}
+[2026-02-03 21:52:02] [INFO]: New database connection established
+[2026-02-03 21:52:02] [ERROR]: Error occurred: Receipt not found for this donation {"stack":"Error: Receipt not found for this donation\n    at getReceiptByDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/receipts/receipts_controller.ts:28:11)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/receipts/donation/03c39702-4dcd-45e9-9bc7-8f26ffa95830","method":"GET"}
+[2026-02-03 21:52:03] [ERROR]: Error occurred: Receipt not found for this donation {"stack":"Error: Receipt not found for this donation\n    at getReceiptByDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/receipts/receipts_controller.ts:28:11)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/receipts/donation/03c39702-4dcd-45e9-9bc7-8f26ffa95830","method":"GET"}
+[2026-02-03 21:52:05] [ERROR]: Error occurred: Receipt not found for this donation {"stack":"Error: Receipt not found for this donation\n    at getReceiptByDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/receipts/receipts_controller.ts:28:11)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/receipts/donation/abe696ac-e1eb-43fc-b7d7-03b5c6d0d8b0","method":"GET"}
+[2026-02-03 21:52:06] [ERROR]: Error occurred: Receipt not found for this donation {"stack":"Error: Receipt not found for this donation\n    at getReceiptByDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/receipts/receipts_controller.ts:28:11)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/receipts/donation/abe696ac-e1eb-43fc-b7d7-03b5c6d0d8b0","method":"GET"}
+[2026-02-03 21:52:08] [ERROR]: Error occurred: Receipt not found for this donation {"stack":"Error: Receipt not found for this donation\n    at getReceiptByDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/receipts/receipts_controller.ts:28:11)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/receipts/donation/39822268-9e2f-4847-b501-7ef834dd7e7d","method":"GET"}
+[2026-02-03 21:52:09] [ERROR]: Error occurred: Receipt not found for this donation {"stack":"Error: Receipt not found for this donation\n    at getReceiptByDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/receipts/receipts_controller.ts:28:11)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/receipts/donation/39822268-9e2f-4847-b501-7ef834dd7e7d","method":"GET"}
+[2026-02-03 21:54:05] [INFO]: New database connection established
+[2026-02-03 21:54:20] [INFO]: New database connection established
+[2026-02-03 21:54:20] [INFO]: Database connection successful: Tue Feb 03 2026 21:54:20 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 21:56:15] [INFO]: New database connection established
+[2026-02-03 21:58:10] [INFO]: New database connection established
+[2026-02-03 22:00:07] [INFO]: New database connection established
+[2026-02-03 22:01:53] [INFO]: New database connection established
+[2026-02-03 22:04:02] [INFO]: New database connection established
+[2026-02-03 22:04:02] [INFO]: Database connection successful: Tue Feb 03 2026 22:04:02 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 22:04:32] [INFO]: New database connection established
+[2026-02-03 22:04:32] [INFO]: Database connection successful: Tue Feb 03 2026 22:04:32 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 22:04:48] [INFO]: New database connection established
+[2026-02-03 22:04:48] [INFO]: Database connection successful: Tue Feb 03 2026 22:04:48 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 22:07:00] [INFO]: New database connection established
+[2026-02-03 22:07:00] [INFO]: Database connection successful: Tue Feb 03 2026 22:07:00 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 22:07:21] [INFO]: New database connection established
+[2026-02-03 22:07:21] [INFO]: Database connection successful: Tue Feb 03 2026 22:07:21 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 22:07:26] [INFO]: New database connection established
+[2026-02-03 22:07:26] [INFO]: Database connection successful: Tue Feb 03 2026 22:07:26 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 22:08:33] [INFO]: New database connection established
+[2026-02-03 22:08:33] [INFO]: New database connection established
+[2026-02-03 22:11:58] [INFO]: New database connection established
+[2026-02-03 22:11:58] [INFO]: Database connection successful: Tue Feb 03 2026 22:11:58 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 22:13:28] [INFO]: New database connection established
+[2026-02-03 22:14:00] [INFO]: New database connection established

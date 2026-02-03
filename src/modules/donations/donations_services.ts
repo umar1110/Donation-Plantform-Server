@@ -11,7 +11,11 @@ import {
 } from "../donors/donors_repository";
 import type { IDonorCreate } from "../donors/donors_types";
 import { OrgsRepository } from "../orgs/orgs.repository";
-import { getNextReceiptNumber, insertReceipt } from "../receipts/receipts_repository";
+import {
+  getNextReceiptNumber,
+  insertReceipt,
+  markReceiptEmailSent,
+} from "../receipts/receipts_repository";
 import { sendDonationReceiptEmail } from "../receipts/email-sender";
 import { insertDonation } from "./donations_repository";
 import type { IDonation, IDonationCreate } from "./donations_types";
@@ -25,12 +29,9 @@ function buildOrgAddress(org: {
   state_province?: string;
   country?: string;
 }): string {
-  const parts = [
-    org.address,
-    org.city,
-    org.state_province,
-    org.country,
-  ].filter(Boolean);
+  const parts = [org.address, org.city, org.state_province, org.country].filter(
+    Boolean,
+  );
   return parts.join(", ") || "";
 }
 
@@ -39,7 +40,7 @@ async function createReceiptForDonation(
   donation: IDonation,
   orgId: string,
   donor: { first_name: string; last_name: string; email?: string } | null,
-  client: PoolClient
+  client: PoolClient,
 ): Promise<void> {
   const org = await orgsRepository.selectOrgsByIdWithClient(orgId, client);
   if (!org) throw new Error("Org not found for receipt");
@@ -74,12 +75,11 @@ async function createReceiptForDonation(
       retention_until: retentionUntil,
       issued_by_admin_id: null,
     },
-    client
+    client,
   );
 
   // Send receipt email to donor (only if email is available)
   if (donorEmail) {
-    console.log("Scheduling receipt email to: =========> ", donorEmail);
     // Send email asynchronously without blocking the transaction
     setImmediate(async () => {
       try {
@@ -87,7 +87,8 @@ async function createReceiptForDonation(
           ...receipt,
           description_of_gift: "Cash / Money",
         });
-        console.log("Receipt email sent to:", donorEmail);
+        // Update receipt to mark email as sent
+        await markReceiptEmailSent(receipt.id, client);
       } catch (error) {
         console.error("Failed to send receipt email:", error);
         // Don't throw - email failure shouldn't affect donation creation
@@ -99,7 +100,7 @@ async function createReceiptForDonation(
 export class DonationsService {
   /** Anonymous: no donor, receipt shows "Anonymous Donor" */
   async createDonationForAnonymousDonor(
-    donationData: IDonationCreate
+    donationData: IDonationCreate,
   ): Promise<IDonation> {
     if (!donationData.is_anonymous) {
       throw new Error("Donation is not marked as anonymous");
@@ -112,7 +113,7 @@ export class DonationsService {
         donation,
         donationData.org_id,
         null, // no donor info
-        client
+        client,
       );
       await client.query("COMMIT");
       return donation;
@@ -127,7 +128,7 @@ export class DonationsService {
   /** Existing donor: link donation by donor_id, create receipt with donor name */
   async createDonationForDonor(
     donationData: IDonationCreate,
-    donorId: string
+    donorId: string,
   ): Promise<IDonation> {
     const donationAmount = donationData.is_amount_split
       ? (donationData.tax_deductible_amount ?? 0)
@@ -147,18 +148,18 @@ export class DonationsService {
         donationData.org_id,
         donorId,
         donationAmount,
-        client
+        client,
       );
 
       const donation = await insertDonation(
         { ...donationData, donor_id: donorId },
-        client
+        client,
       );
       await createReceiptForDonation(
         donation,
         donationData.org_id,
         donor as { first_name: string; last_name: string; email?: string },
-        client
+        client,
       );
       await client.query("COMMIT");
       return donation;
@@ -174,8 +175,12 @@ export class DonationsService {
   async createDonorAndDonation(
     donorData: IDonorCreate,
     donationData: IDonationCreate,
-    org_id: string
-  ): Promise<{ donor: Record<string, unknown>; donation: IDonation; wasLinked: boolean }> {
+    org_id: string,
+  ): Promise<{
+    donor: Record<string, unknown>;
+    donation: IDonation;
+    wasLinked: boolean;
+  }> {
     const client = await getClient();
     try {
       await client.query("BEGIN");
@@ -191,12 +196,12 @@ export class DonationsService {
         const isLinked = await isDonorLinkedToOrg(
           existingDonor.id as string,
           org_id,
-          client
+          client,
         );
 
         if (isLinked) {
           throw new Error(
-            "Donor with this email already exists in your organization"
+            "Donor with this email already exists in your organization",
           );
         }
 
@@ -215,17 +220,22 @@ export class DonationsService {
         : donationData.amount;
 
       await updateDonorTotals(donor.id as string, donationAmount, client);
-      await updateOrgsDonorsTotals(org_id, donor.id as string, donationAmount, client);
+      await updateOrgsDonorsTotals(
+        org_id,
+        donor.id as string,
+        donationAmount,
+        client,
+      );
 
       const donation = await insertDonation(
         { ...donationData, donor_id: donor.id as string },
-        client
+        client,
       );
       await createReceiptForDonation(
         donation,
         org_id,
         donor as { first_name: string; last_name: string; email?: string },
-        client
+        client,
       );
       await client.query("COMMIT");
       return { donor, donation, wasLinked };
