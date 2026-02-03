@@ -8,6 +8,7 @@ export interface IDonation {
   tax_non_deductible_amount: number;
   currency: string;
   payment_method: string;
+  note?: string | null;
   message?: string | null;
   is_anonymous: boolean;
   donation_date?: Date;

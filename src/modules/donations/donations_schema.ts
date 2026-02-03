@@ -30,6 +30,7 @@ const createDonationSchema = z
     message: z.string().optional().nullable(),
     org_id: z.uuid("Organization ID is required."),
     is_anonymous: z.boolean().optional().default(false),
+    note: z.string().optional().nullable(),
     donor_id: z.string().uuid("Invalid Donor ID").optional(),
     donor: createDonorSchema.optional(),
   })

@@ -1097,3 +1097,46 @@
 [2026-02-02 17:02:41] [INFO]: Database connection successful: Mon Feb 02 2026 17:02:41 GMT+0500 (Pakistan Standard Time)
 [2026-02-02 17:04:01] [INFO]: New database connection established
 [2026-02-02 17:04:01] [INFO]: Database connection successful: Mon Feb 02 2026 17:04:01 GMT+0500 (Pakistan Standard Time)
+[2026-02-02 17:10:48] [INFO]: New database connection established
+[2026-02-02 17:10:48] [INFO]: Database connection successful: Mon Feb 02 2026 17:10:48 GMT+0500 (Pakistan Standard Time)
+[2026-02-02 17:29:55] [ERROR]: Error occurred: Invalid or expired access token {"stack":"Error: Invalid or expired access token\n    at requireAuth (/Users/mac/My Projects/DonationPlatform/server/src/middleware/auth-handlers.ts:24:13)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/auth/me","method":"GET"}
+[2026-02-02 17:29:55] [ERROR]: Error occurred: Invalid or expired refresh token {"stack":"Error: Invalid or expired refresh token\n    at refreshToken (/Users/mac/My Projects/DonationPlatform/server/src/modules/auth/auth_controllers.ts:63:11)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/auth/refresh-token","method":"POST"}
+[2026-02-02 17:38:10] [INFO]: New database connection established
+[2026-02-02 17:38:45] [INFO]: New database connection established
+[2026-02-02 17:39:29] [INFO]: New database connection established
+[2026-02-02 17:40:37] [INFO]: New database connection established
+[2026-02-02 17:43:46] [INFO]: New database connection established
+[2026-02-02 18:19:32] [INFO]: New database connection established
+[2026-02-02 18:23:36] [INFO]: New database connection established
+[2026-02-02 18:24:23] [INFO]: New database connection established
+[2026-02-02 18:34:35] [INFO]: New database connection established
+[2026-02-02 18:38:54] [INFO]: New database connection established
+[2026-02-02 18:39:59] [INFO]: New database connection established
+[2026-02-02 18:44:25] [INFO]: New database connection established
+[2026-02-02 18:53:08] [INFO]: New database connection established
+[2026-02-02 18:53:39] [INFO]: New database connection established
+[2026-02-02 19:00:35] [INFO]: New database connection established
+[2026-02-02 19:05:46] [INFO]: New database connection established
+[2026-02-02 19:07:22] [INFO]: New database connection established
+[2026-02-02 19:11:31] [INFO]: New database connection established
+[2026-02-02 19:16:54] [INFO]: New database connection established
+[2026-02-02 19:17:35] [INFO]: New database connection established
+[2026-02-02 19:18:24] [INFO]: New database connection established
+[2026-02-02 19:20:13] [INFO]: New database connection established
+[2026-02-02 19:24:59] [INFO]: New database connection established
+[2026-02-02 19:26:33] [INFO]: New database connection established
+[2026-02-02 19:29:03] [INFO]: New database connection established
+[2026-02-02 19:34:40] [INFO]: New database connection established
+[2026-02-02 19:36:58] [INFO]: New database connection established
+[2026-02-02 19:41:58] [INFO]: New database connection established
+[2026-02-03 15:45:17] [INFO]: New database connection established
+[2026-02-03 15:45:17] [INFO]: Database connection successful: Tue Feb 03 2026 15:45:17 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 15:45:40] [ERROR]: Error occurred: Invalid or expired access token {"stack":"Error: Invalid or expired access token\n    at requireAuth (/Users/mac/My Projects/DonationPlatform/server/src/middleware/auth-handlers.ts:24:13)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/auth/me","method":"GET"}
+[2026-02-03 15:45:41] [ERROR]: Error occurred: Invalid or expired refresh token {"stack":"Error: Invalid or expired refresh token\n    at refreshToken (/Users/mac/My Projects/DonationPlatform/server/src/modules/auth/auth_controllers.ts:63:11)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/auth/refresh-token","method":"POST"}
+[2026-02-03 15:46:04] [INFO]: New database connection established
+[2026-02-03 17:19:56] [ERROR]: Error occurred: Invalid or expired access token {"stack":"Error: Invalid or expired access token\n    at requireAuth (/Users/mac/My Projects/DonationPlatform/server/src/middleware/auth-handlers.ts:24:13)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/auth/me","method":"GET"}
+[2026-02-03 17:19:56] [ERROR]: Error occurred: Invalid or expired access token {"stack":"Error: Invalid or expired access token\n    at requireAuth (/Users/mac/My Projects/DonationPlatform/server/src/middleware/auth-handlers.ts:24:13)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/auth/me","method":"GET"}
+[2026-02-03 17:32:20] [INFO]: New database connection established
+[2026-02-03 17:32:20] [INFO]: Database connection successful: Tue Feb 03 2026 17:32:20 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 17:33:00] [INFO]: New database connection established
+[2026-02-03 17:33:00] [INFO]: Database connection successful: Tue Feb 03 2026 17:33:00 GMT+0500 (Pakistan Standard Time)
