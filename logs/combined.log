@@ -1140,3 +1140,105 @@
 [2026-02-03 17:32:20] [INFO]: Database connection successful: Tue Feb 03 2026 17:32:20 GMT+0500 (Pakistan Standard Time)
 [2026-02-03 17:33:00] [INFO]: New database connection established
 [2026-02-03 17:33:00] [INFO]: Database connection successful: Tue Feb 03 2026 17:33:00 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 17:37:27] [INFO]: New database connection established
+[2026-02-03 17:37:27] [INFO]: Database connection successful: Tue Feb 03 2026 17:37:26 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 17:38:17] [INFO]: New database connection established
+[2026-02-03 17:38:17] [INFO]: Database connection successful: Tue Feb 03 2026 17:38:17 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 17:38:23] [ERROR]: Error occurred: column "note" of relation "donations" does not exist {"stack":"error: column \"note\" of relation \"donations\" does not exist\n    at /Users/mac/My Projects/DonationPlatform/server/node_modules/pg/lib/client.js:588:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at insertDonation (/Users/mac/My Projects/DonationPlatform/server/src/modules/donations/donations_repository.ts:14:18)\n    at DonationsService.createDonationForDonor (/Users/mac/My Projects/DonationPlatform/server/src/modules/donations/donations_services.ts:151:24)\n    at addNewDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/donations/donations_controller.ts:56:22)","path":"/api/v1/donations","method":"POST"}
+[2026-02-03 17:38:58] [INFO]: New database connection established
+[2026-02-03 17:38:58] [INFO]: Database connection successful: Tue Feb 03 2026 17:38:58 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 17:39:01] [INFO]: New database connection established
+[2026-02-03 17:39:01] [INFO]: Database connection successful: Tue Feb 03 2026 17:39:01 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 17:40:43] [INFO]: New database connection established
+[2026-02-03 17:40:43] [INFO]: Database connection successful: Tue Feb 03 2026 17:40:43 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 17:41:00] [INFO]: New database connection established
+[2026-02-03 17:41:00] [INFO]: Database connection successful: Tue Feb 03 2026 17:41:00 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 17:42:13] [INFO]: New database connection established
+[2026-02-03 17:42:13] [INFO]: Database connection successful: Tue Feb 03 2026 17:42:13 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 17:42:17] [INFO]: New database connection established
+[2026-02-03 17:42:17] [INFO]: Database connection successful: Tue Feb 03 2026 17:42:17 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 17:42:30] [INFO]: New database connection established
+[2026-02-03 17:42:30] [INFO]: Database connection successful: Tue Feb 03 2026 17:42:30 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 17:42:31] [ERROR]: Error occurred: column "note" of relation "donations" does not exist {"stack":"error: column \"note\" of relation \"donations\" does not exist\n    at /Users/mac/My Projects/DonationPlatform/server/node_modules/pg/lib/client.js:588:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at insertDonation (/Users/mac/My Projects/DonationPlatform/server/src/modules/donations/donations_repository.ts:14:18)\n    at DonationsService.createDonationForDonor (/Users/mac/My Projects/DonationPlatform/server/src/modules/donations/donations_services.ts:151:24)\n    at addNewDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/donations/donations_controller.ts:57:22)","path":"/api/v1/donations","method":"POST"}
+[2026-02-03 17:43:04] [INFO]: New database connection established
+[2026-02-03 17:43:04] [ERROR]: Error occurred: column "note" of relation "donations" does not exist {"stack":"error: column \"note\" of relation \"donations\" does not exist\n    at /Users/mac/My Projects/DonationPlatform/server/node_modules/pg/lib/client.js:588:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at insertDonation (/Users/mac/My Projects/DonationPlatform/server/src/modules/donations/donations_repository.ts:14:18)\n    at DonationsService.createDonationForDonor (/Users/mac/My Projects/DonationPlatform/server/src/modules/donations/donations_services.ts:151:24)\n    at addNewDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/donations/donations_controller.ts:57:22)","path":"/api/v1/donations","method":"POST"}
+[2026-02-03 18:22:39] [INFO]: New database connection established
+[2026-02-03 18:24:36] [INFO]: New database connection established
+[2026-02-03 18:27:54] [INFO]: New database connection established
+[2026-02-03 18:27:54] [INFO]: Database connection successful: Tue Feb 03 2026 18:27:54 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 18:28:11] [INFO]: New database connection established
+[2026-02-03 18:28:11] [INFO]: Database connection successful: Tue Feb 03 2026 18:28:11 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 18:31:04] [INFO]: New database connection established
+[2026-02-03 18:31:04] [INFO]: Database connection successful: Tue Feb 03 2026 18:31:04 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 18:31:34] [INFO]: New database connection established
+[2026-02-03 18:31:34] [INFO]: Database connection successful: Tue Feb 03 2026 18:31:34 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 18:41:15] [INFO]: New database connection established
+[2026-02-03 18:43:15] [INFO]: New database connection established
+[2026-02-03 18:44:15] [ERROR]: Error occurred: Invalid or expired access token {"stack":"Error: Invalid or expired access token\n    at requireAuth (/Users/mac/My Projects/DonationPlatform/server/src/middleware/auth-handlers.ts:24:13)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/auth/me","method":"GET"}
+[2026-02-03 18:45:45] [INFO]: New database connection established
+[2026-02-03 18:48:33] [INFO]: New database connection established
+[2026-02-03 18:50:47] [INFO]: New database connection established
+[2026-02-03 18:58:02] [INFO]: New database connection established
+[2026-02-03 18:58:49] [INFO]: New database connection established
+[2026-02-03 19:00:12] [INFO]: New database connection established
+[2026-02-03 19:11:27] [INFO]: New database connection established
+[2026-02-03 19:11:27] [INFO]: Database connection successful: Tue Feb 03 2026 19:11:27 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 19:11:36] [INFO]: New database connection established
+[2026-02-03 19:11:36] [INFO]: Database connection successful: Tue Feb 03 2026 19:11:36 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 19:20:10] [INFO]: New database connection established
+[2026-02-03 19:20:10] [INFO]: Database connection successful: Tue Feb 03 2026 19:20:10 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 19:21:33] [INFO]: New database connection established
+[2026-02-03 19:21:33] [INFO]: Database connection successful: Tue Feb 03 2026 19:21:33 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 19:21:35] [ERROR]: Error occurred: Organization context required {"stack":"Error: Organization context required\n    at searchDonorsController (/Users/mac/My Projects/DonationPlatform/server/src/modules/donors/donors_controller.ts:13:11)\n    at /Users/mac/My Projects/DonationPlatform/server/src/utils/catchAsyncErrors.ts:20:21\n    at Layer.handleRequest (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/layer.js:152:17)\n    at next (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/route.js:157:13)\n    at Route.dispatch (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/route.js:117:3)\n    at handle (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/index.js:435:11)\n    at Layer.handleRequest (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/layer.js:152:17)\n    at /Users/mac/My Projects/DonationPlatform/server/node_modules/router/index.js:295:15\n    at processParams (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/index.js:582:12)\n    at next (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/index.js:291:5)","path":"/api/v1/donors/search","method":"GET"}
+[2026-02-03 19:21:36] [ERROR]: Error occurred: Organization context required {"stack":"Error: Organization context required\n    at searchDonorsController (/Users/mac/My Projects/DonationPlatform/server/src/modules/donors/donors_controller.ts:13:11)\n    at /Users/mac/My Projects/DonationPlatform/server/src/utils/catchAsyncErrors.ts:20:21\n    at Layer.handleRequest (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/layer.js:152:17)\n    at next (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/route.js:157:13)\n    at Route.dispatch (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/route.js:117:3)\n    at handle (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/index.js:435:11)\n    at Layer.handleRequest (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/layer.js:152:17)\n    at /Users/mac/My Projects/DonationPlatform/server/node_modules/router/index.js:295:15\n    at processParams (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/index.js:582:12)\n    at next (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/index.js:291:5)","path":"/api/v1/donors/search","method":"GET"}
+[2026-02-03 19:21:37] [ERROR]: Error occurred: Organization context required {"stack":"Error: Organization context required\n    at searchDonorsController (/Users/mac/My Projects/DonationPlatform/server/src/modules/donors/donors_controller.ts:13:11)\n    at /Users/mac/My Projects/DonationPlatform/server/src/utils/catchAsyncErrors.ts:20:21\n    at Layer.handleRequest (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/layer.js:152:17)\n    at next (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/route.js:157:13)\n    at Route.dispatch (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/route.js:117:3)\n    at handle (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/index.js:435:11)\n    at Layer.handleRequest (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/layer.js:152:17)\n    at /Users/mac/My Projects/DonationPlatform/server/node_modules/router/index.js:295:15\n    at processParams (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/index.js:582:12)\n    at next (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/index.js:291:5)","path":"/api/v1/donors/search","method":"GET"}
+[2026-02-03 19:24:23] [INFO]: New database connection established
+[2026-02-03 19:24:23] [INFO]: Database connection successful: Tue Feb 03 2026 19:24:23 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 19:25:36] [INFO]: New database connection established
+[2026-02-03 19:25:48] [INFO]: New database connection established
+[2026-02-03 19:25:48] [INFO]: Database connection successful: Tue Feb 03 2026 19:25:48 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 19:26:05] [INFO]: New database connection established
+[2026-02-03 19:26:05] [INFO]: Database connection successful: Tue Feb 03 2026 19:26:05 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 19:29:07] [INFO]: New database connection established
+[2026-02-03 19:29:43] [INFO]: New database connection established
+[2026-02-03 19:30:37] [INFO]: New database connection established
+[2026-02-03 19:30:37] [ERROR]: Error occurred: [
+  {
+    "expected": "date",
+    "code": "invalid_type",
+    "path": [
+      "donation_date"
+    ],
+    "message": "Invalid input: expected date, received string"
+  }
+] {"stack":"ZodError: [\n  {\n    \"expected\": \"date\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"donation_date\"\n    ],\n    \"message\": \"Invalid input: expected date, received string\"\n  }\n]\n    at addNewDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/donations/donations_controller.ts:31:42)\n    at Layer.handleRequest (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/layer.js:152:17)\n    at next (/Users/mac/My Projects/DonationPlatform/server/node_modules/router/lib/route.js:157:13)\n    at orgsHandler (/Users/mac/My Projects/DonationPlatform/server/src/middleware/orgs-handler.ts:29:5)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/donations","method":"POST"}
+[2026-02-03 19:31:20] [INFO]: New database connection established
+[2026-02-03 19:31:20] [INFO]: Database connection successful: Tue Feb 03 2026 19:31:20 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 19:32:07] [INFO]: New database connection established
+[2026-02-03 19:32:56] [INFO]: New database connection established
+[2026-02-03 19:33:45] [INFO]: New database connection established
+[2026-02-03 19:35:14] [INFO]: New database connection established
+[2026-02-03 19:36:18] [INFO]: New database connection established
+[2026-02-03 19:36:50] [INFO]: New database connection established
+[2026-02-03 19:38:03] [INFO]: New database connection established
+[2026-02-03 19:38:03] [INFO]: Database connection successful: Tue Feb 03 2026 19:38:03 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 19:40:45] [INFO]: New database connection established
+[2026-02-03 19:46:01] [INFO]: New database connection established
+[2026-02-03 19:46:01] [INFO]: Database connection successful: Tue Feb 03 2026 19:46:01 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 19:46:20] [INFO]: New database connection established
+[2026-02-03 19:46:20] [INFO]: Database connection successful: Tue Feb 03 2026 19:46:20 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 19:48:33] [INFO]: New database connection established
+[2026-02-03 19:48:35] [INFO]: New database connection established
+[2026-02-03 19:48:35] [INFO]: Database connection successful: Tue Feb 03 2026 19:48:35 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 19:48:47] [INFO]: New database connection established
+[2026-02-03 19:48:47] [INFO]: Database connection successful: Tue Feb 03 2026 19:48:47 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 19:48:58] [INFO]: New database connection established
+[2026-02-03 19:48:58] [INFO]: Database connection successful: Tue Feb 03 2026 19:48:58 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 20:28:58] [ERROR]: Error occurred: Invalid or expired access token {"stack":"Error: Invalid or expired access token\n    at requireAuth (/Users/mac/My Projects/DonationPlatform/server/src/middleware/auth-handlers.ts:24:13)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/auth/me","method":"GET"}
+[2026-02-03 20:28:59] [ERROR]: Error occurred: Invalid or expired access token {"stack":"Error: Invalid or expired access token\n    at requireAuth (/Users/mac/My Projects/DonationPlatform/server/src/middleware/auth-handlers.ts:24:13)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","path":"/api/v1/auth/me","method":"GET"}
+[2026-02-03 20:29:15] [INFO]: New database connection established
+[2026-02-03 20:29:47] [INFO]: New database connection established
+[2026-02-03 20:29:47] [INFO]: Database connection successful: Tue Feb 03 2026 20:29:47 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 20:30:12] [INFO]: New database connection established
+[2026-02-03 20:30:12] [INFO]: Database connection successful: Tue Feb 03 2026 20:30:12 GMT+0500 (Pakistan Standard Time)
+[2026-02-03 20:30:25] [ERROR]: Error occurred: Donor with this email already exists in your organization {"stack":"Error: Donor with this email already exists in your organization\n    at DonationsService.createDonorAndDonation (/Users/mac/My Projects/DonationPlatform/server/src/modules/donations/donations_services.ts:198:17)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at addNewDonationController (/Users/mac/My Projects/DonationPlatform/server/src/modules/donations/donations_controller.ts:84:18)","path":"/api/v1/donations","method":"POST"}

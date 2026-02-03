@@ -9,3 +9,8 @@ export const createDonorSchema = z.object({
   address: z.string().optional(),
   auth_user_id: z.string().uuid().optional().nullable(),
 });
+
+export const searchDonorsQuerySchema = z.object({
+  q: z.string().min(1, "Search query is required"),
+  limit: z.coerce.number().min(1).max(50).optional().default(10),
+});

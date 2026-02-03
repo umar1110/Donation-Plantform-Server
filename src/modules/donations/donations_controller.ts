@@ -50,6 +50,8 @@ export const addNewDonationController = async (
     message: validated.message,
     is_anonymous: validated.is_anonymous,
     org_id: validated.org_id,
+    donation_by: validated.donation_by,
+    donation_date: validated.donation_date,
   };
 
   if (validated.donor_id) {
@@ -85,9 +87,13 @@ export const addNewDonationController = async (
     orgId
   );
 
+  const message = result.wasLinked
+    ? "Existing donor linked to your organization and donation created successfully"
+    : "Donor and Donation created successfully";
+
   return res.status(201).json({
     success: true,
-    message: "Donor and Donation created successfully",
+    message,
     data: result,
   });
 };

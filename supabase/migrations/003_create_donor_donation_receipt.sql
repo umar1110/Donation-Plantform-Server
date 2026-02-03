@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS donor_profiles (
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     auth_user_id UUID  NULL,
-    email VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
     phone VARCHAR(20),
     address TEXT,
     total_donations NUMERIC(12, 2) DEFAULT 0 CHECK (total_donations >= 0),
@@ -45,7 +45,9 @@ CREATE TABLE IF NOT EXISTS donations (
     is_anonymous BOOLEAN DEFAULT FALSE,
     
     -- Additional Info
-    notes TEXT,
+    note TEXT,
+    abn VARCHAR(50),
+    donation_by SMALLINT NOT NULL DEFAULT 0,
     metadata JSONB DEFAULT '{}',
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW(),
@@ -147,7 +149,9 @@ CREATE INDEX IF NOT EXISTS idx_donor_profiles_email
 CREATE INDEX IF NOT EXISTS idx_donations_donor_id
   ON donations(donor_id);        
 CREATE INDEX IF NOT EXISTS idx_donations_status
-  ON donations(status);        
+  ON donations(status);
+CREATE INDEX IF NOT EXISTS idx_donations_donation_by
+  ON donations(donation_by);        
 CREATE INDEX IF NOT EXISTS idx_receipts_donation_id
   ON receipts(donation_id);        
 CREATE INDEX IF NOT EXISTS idx_receipts_receipt_number

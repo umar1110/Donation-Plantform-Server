@@ -56,10 +56,44 @@ export const findDonorByEmailAndOrg = async (
     `SELECT d.id, d.first_name, d.last_name, d.email, d.phone, d.address, d.auth_user_id, d.total_donations, d.donation_count, d.created_at, d.updated_at
      FROM donor_profiles d
      INNER JOIN orgs_donors od ON d.id = od.donor_id
-     WHERE d.email = $1 AND od.org_id = $2`,
+     WHERE LOWER(d.email) = LOWER($1) AND od.org_id = $2`,
     [email, orgId]
   );
   return result.rows[0];
+};
+
+/**
+ * Find donor by email globally (internal use only - for duplicate prevention)
+ * This is used by backend to check if email exists before creating new donor
+ */
+export const findDonorByEmail = async (
+  email: string,
+  client?: PoolClient
+): Promise<Record<string, unknown> | undefined> => {
+  const q = queryClient(client);
+  const result = await q.query(
+    `SELECT id, first_name, last_name, email, phone, address, auth_user_id, total_donations, donation_count, created_at, updated_at
+     FROM donor_profiles
+     WHERE LOWER(email) = LOWER($1)`,
+    [email]
+  );
+  return result.rows[0];
+};
+
+/**
+ * Check if donor is already linked to organization
+ */
+export const isDonorLinkedToOrg = async (
+  donorId: string,
+  orgId: string,
+  client?: PoolClient
+): Promise<boolean> => {
+  const q = queryClient(client);
+  const result = await q.query(
+    `SELECT 1 FROM orgs_donors WHERE donor_id = $1 AND org_id = $2`,
+    [donorId, orgId]
+  );
+  return result.rowCount !== null && result.rowCount > 0;
 };
 
 export const linkDonorToOrg = async (
@@ -106,4 +140,41 @@ export const updateOrgsDonorsTotals = async (
      WHERE org_id = $2 AND donor_id = $3`,
     [donationAmount, orgId, donorId]
   );
+};
+
+/**
+ * Search donors by email, first_name, or last_name (partial match)
+ * Only returns donors linked to the organization
+ */
+export const searchDonorsByOrg = async (
+  orgId: string,
+  searchTerm: string,
+  limit: number = 10,
+  client?: PoolClient
+): Promise<Array<{
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string | null;
+}>> => {
+  const q = queryClient(client);
+  const searchPattern = `%${searchTerm.toLowerCase()}%`;
+  
+  const result = await q.query(
+    `SELECT d.id, d.first_name, d.last_name, d.email, d.phone
+     FROM donor_profiles d
+     INNER JOIN orgs_donors od ON d.id = od.donor_id
+     WHERE od.org_id = $1
+       AND (
+         LOWER(d.email) LIKE $2
+         OR LOWER(d.first_name) LIKE $2
+         OR LOWER(d.last_name) LIKE $2
+       )
+     ORDER BY d.first_name, d.last_name
+     LIMIT $3`,
+    [orgId, searchPattern, limit]
+  );
+  
+  return result.rows;
 };

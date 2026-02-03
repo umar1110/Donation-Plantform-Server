@@ -1,9 +1,10 @@
 import { PoolClient } from "pg";
 import { getClient } from "../../config/database";
 import {
-  findDonorByEmailAndOrg,
+  findDonorByEmail,
   getDonorById,
   insertDonorProfile,
+  isDonorLinkedToOrg,
   linkDonorToOrg,
   updateDonorTotals,
   updateOrgsDonorsTotals,
@@ -35,7 +36,7 @@ function buildOrgAddress(org: {
 
 /** Creates a receipt for a donation. Call inside same transaction as donation insert. */
 async function createReceiptForDonation(
-  donation: IDonation & { donation_date?: Date },
+  donation: IDonation,
   orgId: string,
   donor: { first_name: string; last_name: string; email?: string } | null,
   client: PoolClient
@@ -49,6 +50,7 @@ async function createReceiptForDonation(
     : "Anonymous Donor";
   const donorEmail = donor?.email ?? null;
 
+  // donation_date comes from database (either provided or NOW())
   const donationDate = donation.donation_date ?? new Date();
   const retentionUntil = new Date(donationDate);
   retentionUntil.setFullYear(retentionUntil.getFullYear() + 7); // ATO: keep 7 years
@@ -168,39 +170,55 @@ export class DonationsService {
     }
   }
 
-  /** New donor + donation in one go: create donor, link to org, then donation + receipt */
+  /** New donor + donation in one go: create donor or link existing, then donation + receipt */
   async createDonorAndDonation(
     donorData: IDonorCreate,
     donationData: IDonationCreate,
     org_id: string
-  ): Promise<{ donor: Record<string, unknown>; donation: IDonation }> {
+  ): Promise<{ donor: Record<string, unknown>; donation: IDonation; wasLinked: boolean }> {
     const client = await getClient();
     try {
       await client.query("BEGIN");
 
-      const existingDonor = await findDonorByEmailAndOrg(
-        donorData.email,
-        org_id,
-        client
-      );
-      if (existingDonor) {
-        throw new Error(
-          "Donor with this email already exists in the organization"
-        );
-      }
+      let donor: Record<string, unknown>;
+      let wasLinked = false;
 
-      const donor = await insertDonorProfile(donorData, client);
-      await linkDonorToOrg(org_id, donor.id, client);
+      // Check if donor exists globally by email
+      const existingDonor = await findDonorByEmail(donorData.email, client);
+
+      if (existingDonor) {
+        // Donor exists globally - check if already linked to this org
+        const isLinked = await isDonorLinkedToOrg(
+          existingDonor.id as string,
+          org_id,
+          client
+        );
+
+        if (isLinked) {
+          throw new Error(
+            "Donor with this email already exists in your organization"
+          );
+        }
+
+        // Link existing donor to this org
+        await linkDonorToOrg(org_id, existingDonor.id as string, client);
+        donor = existingDonor;
+        wasLinked = true;
+      } else {
+        // Create new donor and link to org
+        donor = await insertDonorProfile(donorData, client);
+        await linkDonorToOrg(org_id, donor.id as string, client);
+      }
 
       const donationAmount = donationData.is_amount_split
         ? (donationData.tax_deductible_amount ?? 0)
         : donationData.amount;
 
-      await updateDonorTotals(donor.id, donationAmount, client);
-      await updateOrgsDonorsTotals(org_id, donor.id, donationAmount, client);
+      await updateDonorTotals(donor.id as string, donationAmount, client);
+      await updateOrgsDonorsTotals(org_id, donor.id as string, donationAmount, client);
 
       const donation = await insertDonation(
-        { ...donationData, donor_id: donor.id },
+        { ...donationData, donor_id: donor.id as string },
         client
       );
       await createReceiptForDonation(
@@ -210,7 +228,7 @@ export class DonationsService {
         client
       );
       await client.query("COMMIT");
-      return { donor, donation };
+      return { donor, donation, wasLinked };
     } catch (err) {
       await client.query("ROLLBACK");
       throw err;

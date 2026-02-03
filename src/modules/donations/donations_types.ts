@@ -1,3 +1,5 @@
+import { DonationSourceType } from "./donations.constants";
+
 export interface IDonation {
   id: string;
   org_id: string;
@@ -11,6 +13,8 @@ export interface IDonation {
   note?: string | null;
   message?: string | null;
   is_anonymous: boolean;
+  abn?: string | null;
+  donation_by: DonationSourceType;
   donation_date?: Date;
   created_at?: Date;
   updated_at?: Date;

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { createDonorSchema } from "../donors/donors_schema";
+import { DONATION_SOURCE } from "./donations.constants";
 
 const paymentMethodEnum = z.enum([
   "cash",
@@ -28,9 +29,12 @@ const createDonationSchema = z
       .min(2, "Currency must be at least 2 characters long"),
     payment_method: paymentMethodEnum,
     message: z.string().optional().nullable(),
+    donation_date: z.coerce.date().optional(),
     org_id: z.uuid("Organization ID is required."),
     is_anonymous: z.boolean().optional().default(false),
     note: z.string().optional().nullable(),
+    abn: z.string().optional().nullable(),
+    donation_by: z.enum(DONATION_SOURCE).default(DONATION_SOURCE.INDIVIDUAL),
     donor_id: z.string().uuid("Invalid Donor ID").optional(),
     donor: createDonorSchema.optional(),
   })
@@ -42,20 +46,21 @@ const createDonationSchema = z
     {
       message: "If not anonymous, either donor_id or donor must be provided.",
       path: ["donor_id", "donor"],
-    }
+    },
   )
   .refine(
     (data) => {
       if (!data.is_amount_split) return true;
       const sum =
-        (data.tax_deductible_amount ?? 0) + (data.tax_non_deductible_amount ?? 0);
+        (data.tax_deductible_amount ?? 0) +
+        (data.tax_non_deductible_amount ?? 0);
       return Math.abs(sum - data.amount) < 0.01;
     },
     {
       message:
         "When amount is split, tax deductible + non deductible must equal amount.",
       path: ["tax_deductible_amount", "tax_non_deductible_amount"],
-    }
+    },
   );
 
 export { createDonationSchema };

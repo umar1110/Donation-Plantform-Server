@@ -1,6 +1,7 @@
 export interface IUser {
   id: string;
   auth_user_id: string;
+  org_id: string;
   first_name: string;
   last_name: string;
   email: string;

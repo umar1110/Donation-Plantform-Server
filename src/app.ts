@@ -9,7 +9,7 @@ import cors from "cors";
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN?.split(",") || "*",
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Orgs-ID"],
   }),
 );
 
@@ -23,6 +23,7 @@ import orgsRoutes from "./modules/orgs/orgs.routes";
 import authRoutes from "./modules/auth/auth_routes";
 import usersRoutes from "./modules/users/users_routes";
 import donationsRoutes from "./modules/donations/donations.routes";
+import donorsRoutes from "./modules/donors/donors_routes";
 app.get("/health", (req: express.Request, res: express.Response) => {
   res.json({ status: "OK" });
 });
@@ -30,6 +31,7 @@ app.use("/api/v1", orgsRoutes);
 app.use("/api/v1", authRoutes);
 app.use("/api/v1", usersRoutes);
 app.use("/api/v1", donationsRoutes);
+app.use("/api/v1", donorsRoutes);
 
 // Error handling (must be after routes)
 app.use(notFoundHandler);
