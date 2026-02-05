@@ -11,11 +11,11 @@ export const insertDonorProfile = async (
   data: z.infer<typeof createDonorSchema>,
   client?: PoolClient
 ) => {
-  const { first_name, last_name, email, phone, address, auth_user_id } = data;
+  const { first_name, last_name, email, phone, address, country, state_province, city, auth_user_id } = data;
   const q = queryClient(client);
   const result = await q.query(
-    `INSERT INTO donor_profiles (first_name, last_name, email, phone, address, auth_user_id)
-     VALUES ($1, $2, $3, $4, $5, $6)
+    `INSERT INTO donor_profiles (first_name, last_name, email, phone, address, country, state_province, city, auth_user_id)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
      RETURNING *`,
     [
       first_name,
@@ -23,6 +23,9 @@ export const insertDonorProfile = async (
       email,
       phone || null,
       address || null,
+      country || null,
+      state_province || null,
+      city || null,
       auth_user_id || null,
     ]
   );
@@ -35,7 +38,7 @@ export const selectDonorById = async (
 ): Promise<Record<string, unknown> | undefined> => {
   const q = queryClient(client);
   const result = await q.query(
-    `SELECT id, first_name, last_name, email, phone, address, auth_user_id, total_donations, donation_count, created_at, updated_at
+    `SELECT id, first_name, last_name, email, phone, address, country, state_province, city, auth_user_id, total_donations, donation_count, created_at, updated_at
      FROM donor_profiles
      WHERE id = $1`,
     [donorId]
@@ -53,7 +56,7 @@ export const findDonorByEmailAndOrg = async (
 ): Promise<Record<string, unknown> | undefined> => {
   const q = queryClient(client);
   const result = await q.query(
-    `SELECT d.id, d.first_name, d.last_name, d.email, d.phone, d.address, d.auth_user_id, d.total_donations, d.donation_count, d.created_at, d.updated_at
+    `SELECT d.id, d.first_name, d.last_name, d.email, d.phone, d.address, d.country, d.state_province, d.city, d.auth_user_id, d.total_donations, d.donation_count, d.created_at, d.updated_at
      FROM donor_profiles d
      INNER JOIN orgs_donors od ON d.id = od.donor_id
      WHERE LOWER(d.email) = LOWER($1) AND od.org_id = $2`,
@@ -72,7 +75,7 @@ export const findDonorByEmail = async (
 ): Promise<Record<string, unknown> | undefined> => {
   const q = queryClient(client);
   const result = await q.query(
-    `SELECT id, first_name, last_name, email, phone, address, auth_user_id, total_donations, donation_count, created_at, updated_at
+    `SELECT id, first_name, last_name, email, phone, address, country, state_province, city, auth_user_id, total_donations, donation_count, created_at, updated_at
      FROM donor_profiles
      WHERE LOWER(email) = LOWER($1)`,
     [email]
@@ -146,6 +149,10 @@ export const updateOrgsDonorsTotals = async (
  * Search donors by email, first_name, or last_name (partial match)
  * Only returns donors linked to the organization
  */
+/**
+ * Search donors by email, first_name, or last_name (partial match)
+ * Only returns donors linked to the organization
+ */
 export const searchDonorsByOrg = async (
   orgId: string,
   searchTerm: string,
@@ -157,12 +164,15 @@ export const searchDonorsByOrg = async (
   last_name: string;
   email: string;
   phone: string | null;
+  country?: string | null;
+  state_province?: string | null;
+  city?: string | null;
 }>> => {
   const q = queryClient(client);
   const searchPattern = `%${searchTerm.toLowerCase()}%`;
   
   const result = await q.query(
-    `SELECT d.id, d.first_name, d.last_name, d.email, d.phone
+    `SELECT d.id, d.first_name, d.last_name, d.email, d.phone, d.country, d.state_province, d.city
      FROM donor_profiles d
      INNER JOIN orgs_donors od ON d.id = od.donor_id
      WHERE od.org_id = $1

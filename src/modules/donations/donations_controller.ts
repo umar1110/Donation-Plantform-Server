@@ -115,6 +115,9 @@ export const addNewDonationController = async (
     email: validateDonor.email,
     phone: validateDonor.phone,
     address: validateDonor.address,
+    country: validateDonor.country,
+    state_province: validateDonor.state_province,
+    city: validateDonor.city,
     org_id: validateDonor.org_id,
     auth_user_id: validateDonor.auth_user_id ?? null,
   };

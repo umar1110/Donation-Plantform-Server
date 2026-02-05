@@ -7,6 +7,9 @@ export const createDonorSchema = z.object({
   email: z.string("Email is required.").email("Invalid email address."),
   phone: z.string().optional(),
   address: z.string().optional(),
+  country: z.string().optional(),
+  state_province: z.string().optional(),
+  city: z.string().optional(),
   auth_user_id: z.string().uuid().optional().nullable(),
 });
 

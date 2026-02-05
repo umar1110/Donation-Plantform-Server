@@ -68,7 +68,7 @@ function generateReceiptHtml(receipt: IReceiptEmailData): string {
           <!-- Header -->
           <tr>
             <td style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 30px; text-align: center; border-radius: 8px 8px 0 0;">
-              <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 600;">DGR Donation Receipt</h1>
+              <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 600;"> Donation Receipt</h1>
             </td>
           </tr>
 
@@ -234,7 +234,7 @@ function generateReceiptText(receipt: IReceiptEmailData): string {
   }
 
   return `
-DGR DONATION RECEIPT
+ DONATION RECEIPT
 ====================
 
 Receipt Number: ${receipt.receipt_number}
